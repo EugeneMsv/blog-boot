@@ -1,0 +1,9 @@
+**/node_modules/
+**/public/assets
+**/target/
+*.iml
+**/.idea/
+*.log
+**/generated/
+*.db
+*.jar
