@@ -1,11 +1,15 @@
-package ru.text.nastya;
+package ru.text.nastya.dto;
+
+
+import ru.text.nastya.dto.base.IdentityDto;
 
 import java.time.LocalDateTime;
 
-/**
- * Фильтр для поиска пост регистров
- */
-public class PostRegisterFilter implements Filter {
+public class PostRegisterDto extends IdentityDto {
+
+    private static final long serialVersionUID = -6241819091243049677L;
+
+    private PostDto post;
 
     private String preview;
 
@@ -16,6 +20,16 @@ public class PostRegisterFilter implements Filter {
     private Long commentsNum;
 
     private LocalDateTime createdTime;
+
+    private String metaInfo;
+
+    public PostDto getPost() {
+        return post;
+    }
+
+    public void setPost(PostDto post) {
+        this.post = post;
+    }
 
     public String getPreview() {
         return preview;
@@ -55,5 +69,13 @@ public class PostRegisterFilter implements Filter {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public String getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(String metaInfo) {
+        this.metaInfo = metaInfo;
     }
 }

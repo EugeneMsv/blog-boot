@@ -17,7 +17,7 @@ public class PostRegister extends Identity {
     /**
      * Пост регистр является владельцем ссылки на пост
      */
-    @OneToOne(fetch = FetchType.LAZY, cascade = {MERGE, DETACH, REMOVE, REFRESH,}, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {MERGE, DETACH, REMOVE, REFRESH}, orphanRemoval = true)
     private Post post;
 
     @Column(name = "preview")

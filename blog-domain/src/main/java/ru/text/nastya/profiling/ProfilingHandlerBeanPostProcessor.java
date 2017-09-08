@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+@Component
 public class ProfilingHandlerBeanPostProcessor implements BeanPostProcessor {
 
     private final Map<String, Pair<Profiling, Class>> profilingClasses = new HashMap<>();

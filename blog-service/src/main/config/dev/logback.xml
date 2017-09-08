@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="ru.ahml.apxd.mortgage" level="TRACE"/>
+    <logger name="ru.text.nastya" level="TRACE"/>
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
