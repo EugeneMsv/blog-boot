@@ -95,7 +95,7 @@ public class CommentaryManagerImplIT extends BaseServiceIT {
         Commentary saved2 = commentaryManager.save(randCommentary2);
         assertFieldsEquals(randCommentary2, saved2);
 
-        Page<Commentary> page = commentaryManager.findAll(new PageRequest(0, 10));
+        Page<Commentary> page = commentaryManager.doFindAllRequest(new PageRequest(0, 10));
         assertFalse(page.hasNext());
         assertThat(Arrays.asList(saved1, saved2), is(page.getContent()));
     }
@@ -114,8 +114,8 @@ public class CommentaryManagerImplIT extends BaseServiceIT {
         Commentary saved2 = commentaryManager.save(randCommentary2);
         assertFieldsEquals(randCommentary2, saved2);
 
-        Page<Commentary> page1 = commentaryManager.findAll(new PageRequest(0, 1));
-        Page<Commentary> page2 = commentaryManager.findAll(new PageRequest(0, 2));
+        Page<Commentary> page1 = commentaryManager.doFindAllRequest(new PageRequest(0, 1));
+        Page<Commentary> page2 = commentaryManager.doFindAllRequest(new PageRequest(0, 2));
         assertTrue(page1.hasNext());
         assertFalse(page2.hasNext());
         assertTrue(page1.getContent().contains(saved1) || page2.getContent().contains(saved1));

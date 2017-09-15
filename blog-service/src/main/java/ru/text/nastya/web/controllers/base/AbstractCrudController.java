@@ -67,8 +67,7 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     }
 
 
-    @DeleteMapping(value = {"{id}"},
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @DeleteMapping(value = {"{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id) {
         getCrudService().delete(id);
