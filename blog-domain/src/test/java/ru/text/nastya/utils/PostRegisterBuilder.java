@@ -1,8 +1,6 @@
 package ru.text.nastya.utils;
 
-import ru.text.nastya.domain.entities.Post;
 import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.dto.PostDto;
 import ru.text.nastya.dto.PostRegisterDto;
 
 import java.time.LocalDateTime;
@@ -53,16 +51,6 @@ public class PostRegisterBuilder {
             postRegisterDto.setViews(views);
             postRegisterDto.setCommentsNum(commentsNum);
         }
-        return this;
-    }
-
-    public PostRegisterBuilder post(Post post) {
-        postRegister.setPost(post);
-        return this;
-    }
-
-    public PostRegisterBuilder post(PostDto post) {
-        postRegisterDto.setPost(post);
         return this;
     }
 

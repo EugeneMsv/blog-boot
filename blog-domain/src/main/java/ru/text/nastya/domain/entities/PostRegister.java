@@ -14,12 +14,6 @@ public class PostRegister extends Identity {
 
     private static final long serialVersionUID = -1207026720655304124L;
 
-    /**
-     * Пост регистр является владельцем ссылки на пост
-     */
-    @OneToOne(fetch = FetchType.LAZY, cascade = {MERGE, DETACH, REMOVE, REFRESH}, orphanRemoval = true)
-    private Post post;
-
     @Column(name = "preview")
     private String preview;
 
@@ -39,13 +33,6 @@ public class PostRegister extends Identity {
     @Column(name = "meta_info", columnDefinition = "TEXT")
     private String metaInfo;
 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 
     public String getPreview() {
         return preview;

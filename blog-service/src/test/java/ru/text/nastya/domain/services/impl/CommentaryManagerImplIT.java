@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.text.nastya.BaseServiceIT;
 import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.domain.services.CommentaryManager;
-import ru.text.nastya.domain.services.PostRegisterService;
+import ru.text.nastya.domain.services.manager.CommentaryManager;
+import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -20,7 +20,7 @@ public class CommentaryManagerImplIT extends BaseServiceIT {
     private CommentaryManager commentaryManager;
 
     @Autowired
-    private PostRegisterService postRegisterService;
+    private PostRegisterCrudService postRegisterCrudService;
 
     private static PostRegister POST_REGISTER;
 

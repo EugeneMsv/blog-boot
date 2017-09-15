@@ -1,4 +1,4 @@
-package ru.text.nastya.domain.services;
+package ru.text.nastya.domain.services.manager;
 
 import ru.text.nastya.domain.entities.Commentary;
 import org.springframework.data.domain.Page;

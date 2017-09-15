@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.text.nastya.domain.entities.base.Identity;
-import ru.text.nastya.domain.services.CrudService;
+import ru.text.nastya.domain.services.crud.CrudService;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
 import ru.text.nastya.exception.DataNotFoundException;

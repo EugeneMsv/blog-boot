@@ -1,23 +1,19 @@
-package ru.text.nastya.domain.services.impl;
+package ru.text.nastya.domain.services.crud.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.text.nastya.TagFilter;
 import ru.text.nastya.domain.entities.Tag;
 import ru.text.nastya.domain.repositories.PersistedEntityRepository;
 import ru.text.nastya.domain.repositories.TagRepository;
-import ru.text.nastya.domain.services.TagService;
-import ru.text.nastya.profiling.Profiling;
+import ru.text.nastya.domain.services.crud.TagCrudService;
 
-
-@Profiling(showArgs = true, timeRecord = true, showOutput = true)
 @Service
-public class TagServiceImpl extends FilteredEntityServiceImpl<Tag, TagFilter> implements TagService {
+public class TagCrudServiceImpl extends AbstractCrudServiceImpl<Tag> implements TagCrudService {
 
     private final TagRepository tagRepository;
 
     @Autowired
-    public TagServiceImpl(TagRepository tagRepository) {
+    public TagCrudServiceImpl(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
     }
 

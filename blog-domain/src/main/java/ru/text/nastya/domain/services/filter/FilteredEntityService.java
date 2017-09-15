@@ -1,4 +1,4 @@
-package ru.text.nastya.domain.services;
+package ru.text.nastya.domain.services.filter;
 
 import ru.text.nastya.domain.entities.base.Identity;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import java.util.Optional;
  * @param <F> entity type
  * @param <F> filter type
  */
-public interface FilteredEntityService<E extends Identity, F extends Filter> extends CrudService<E> {
+public interface FilteredEntityService<E extends Identity, F extends Filter> {
 
     /**
      * Check for existence in persist storage by filter

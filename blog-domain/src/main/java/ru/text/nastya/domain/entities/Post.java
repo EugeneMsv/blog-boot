@@ -33,7 +33,8 @@ public class Post extends Identity {
     @Column(name = "state", nullable = false)
     private PostState state;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "postRegister_id", nullable = false)
     private PostRegister postRegister;
 
     public String getCode() {

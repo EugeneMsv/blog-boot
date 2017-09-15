@@ -1,4 +1,4 @@
-package ru.text.nastya.domain.services.impl;
+package ru.text.nastya.domain.services.crud.impl;
 
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.repositories.PersistedEntityRepository;

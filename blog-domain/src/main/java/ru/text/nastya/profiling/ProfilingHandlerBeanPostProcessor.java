@@ -8,8 +8,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
+import javax.management.*;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -31,10 +30,29 @@ public class ProfilingHandlerBeanPostProcessor implements BeanPostProcessor {
 
     private static final Predicate<Profiling> isTimeRecordEnabled = (x) -> x.timeRecord() && logger.isTraceEnabled();
 
-    public ProfilingHandlerBeanPostProcessor() throws Exception {
-        MBeanServer platformMBeanServer = ManagementFactory.getPlatformMBeanServer();
-        platformMBeanServer.registerMBean(profilingController,
-                new ObjectName("profiling", "name", "controller"));
+    private static final ObjectName profilingMBeanName = createObjectName();
+
+    private static ObjectName createObjectName() {
+        try {
+            return new ObjectName("profiling", "name", "controller");
+        } catch (MalformedObjectNameException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ProfilingHandlerBeanPostProcessor() {
+        tryRegisterMbean();
+    }
+
+    private void tryRegisterMbean() {
+        try {
+            MBeanServer platformMBeanServer = ManagementFactory.getPlatformMBeanServer();
+            if (!platformMBeanServer.isRegistered(profilingMBeanName)) {
+                platformMBeanServer.registerMBean(profilingController, profilingMBeanName);
+            }
+        } catch (InstanceAlreadyExistsException | NotCompliantMBeanException | MBeanRegistrationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

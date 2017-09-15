@@ -1,4 +1,4 @@
-package ru.text.nastya.domain.services;
+package ru.text.nastya.domain.services.crud;
 
 import ru.text.nastya.domain.entities.base.Identity;
 import org.springframework.data.domain.Page;

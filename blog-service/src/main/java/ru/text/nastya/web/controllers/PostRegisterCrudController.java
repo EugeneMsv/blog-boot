@@ -1,8 +1,8 @@
 package ru.text.nastya.web.controllers;
 
 import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.domain.services.CrudService;
-import ru.text.nastya.domain.services.PostRegisterService;
+import ru.text.nastya.domain.services.crud.CrudService;
+import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,20 +15,20 @@ import ru.text.nastya.web.controllers.base.AbstractCrudController;
 @RequestMapping("/postRegister")
 public class PostRegisterCrudController extends AbstractCrudController<PostRegister, PostRegisterDto> {
 
-    private final PostRegisterService postRegisterService;
+    private final PostRegisterCrudService postRegisterCrudService;
 
     private final PostRegisterMapper postRegisterMapper;
 
     @Autowired
-    public PostRegisterCrudController(PostRegisterService postRegisterService,
+    public PostRegisterCrudController(PostRegisterCrudService postRegisterCrudService,
                                       PostRegisterMapper postRegisterMapper) {
-        this.postRegisterService = postRegisterService;
+        this.postRegisterCrudService = postRegisterCrudService;
         this.postRegisterMapper = postRegisterMapper;
     }
 
     @Override
     protected CrudService<PostRegister> getCrudService() {
-        return postRegisterService;
+        return postRegisterCrudService;
     }
 
     @Override

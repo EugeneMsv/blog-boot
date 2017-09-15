@@ -24,8 +24,7 @@ import static ru.text.nastya.utils.AssertionUtils.assertPersist;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.getPostRegisterBuilder;
 
-@DatabaseSetups({@DatabaseSetup(value = "/preset/clean.xml", type = DatabaseOperation.DELETE_ALL),
-        @DatabaseSetup(value = "/preset/postregister/set_postregister.xml", type = DatabaseOperation.INSERT)})
+@DatabaseSetups({@DatabaseSetup(value = "/preset/clean.xml", type = DatabaseOperation.DELETE_ALL)})
 public class PostRegisterRepositoryIT extends BaseRepositoryIT {
 
     private static final Random rand = new Random(System.nanoTime());
@@ -33,23 +32,12 @@ public class PostRegisterRepositoryIT extends BaseRepositoryIT {
     @Autowired
     private PostRegisterRepository postRegisterRepository;
 
-    @Autowired
-    private PostRepository postRepository;
-
-    private static Post preSavedPost;
-
-    @Before
-    public void setUp() {
-        preSavedPost = postRepository.findOne(0L).get();
-    }
-
     private PostRegister buildRandomPostRegister() {
         return getPostRegisterBuilder()
                 .entity()
                 .general(rand.nextLong(), rand.nextLong(), rand.nextLong())
                 .info(buildRandomString(), LocalDateTime.now())
                 .meta(buildRandomString())
-                .post(preSavedPost)
                 .buildEntity();
     }
 

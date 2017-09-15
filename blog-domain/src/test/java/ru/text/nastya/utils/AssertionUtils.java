@@ -5,7 +5,13 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import ru.text.nastya.domain.entities.*;
 import ru.text.nastya.domain.entities.base.Identity;
 
-import static org.junit.Assert.assertFalse;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
+
+import static org.junit.Assert.*;
 
 
 public class AssertionUtils {
@@ -24,12 +30,39 @@ public class AssertionUtils {
         assertFalse(target.isNew());
     }
 
-
-    public static <E extends Identity> void assertReflectionEquals(E expected, E actual, String... excludeFields) {
+    public static <E> void assertReflectionEquals(E expected, E actual, String... excludeFields) {
         boolean equals = EqualsBuilder.reflectionEquals(expected, actual, excludeFields);
         throwAssertionError(equals);
     }
 
+    public static <T extends Collection> void assertNotEmpty(T collection) {
+        assertNotNull(collection);
+        assertFalse(collection.isEmpty());
+    }
+
+    public static <T, R> void assertListEqualsInAnyOrder(List<T> expected, List<R> actual,
+                                                         BiFunction<T, R, Boolean> equalsFunc) {
+        Map<Integer, Integer> eqIndexes = new HashMap<>();
+        if (expected != null && actual != null) {
+            assertEquals(expected.size(), actual.size());
+
+            for (int i = 0; i < actual.size(); i++) {
+                R actualEl = actual.get(i);
+                boolean hasEqualEl = false;
+                for (int j = 0; j < expected.size(); j++) {
+                    T expectedEl = expected.get(j);
+                    if (equalsFunc.apply(expectedEl, actualEl) && eqIndexes.get(j) == null) {
+                        eqIndexes.put(j, i);
+                        hasEqualEl = true;
+                        break;
+                    }
+                }
+                assert hasEqualEl : "There is no equal element in expected list for element with index = " + i;
+            }
+        } else {
+            assertTrue(expected == null && actual == null);
+        }
+    }
 
     public static void assertFieldsEquals(Tag expected, Tag actual) {
         boolean equals = new EqualsBuilder()
@@ -80,6 +113,5 @@ public class AssertionUtils {
                 .append(expected.getViews(), actual.getViews())
                 .isEquals();
         throwAssertionError(equals);
-        assertFieldsEquals(expected.getPost(), actual.getPost());
     }
 }
