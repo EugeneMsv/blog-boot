@@ -12,7 +12,8 @@ import ru.text.nastya.dto.PostDto;
         withIgnoreMissing = IgnoreMissing.ALL,
         withIgnoreNullValue = true,
         withCustomFields = {
-                @Field(value = "postRegister", withCustom = PostRegisterMapper.class)
+                @Field(value = "postRegister", withCustom = PostRegisterMapper.class),
+                @Field(value = "tags", withCustom = TagCollectionMapper.class)
         }
 )
 public interface PostMapper extends EntityMapper<Post, PostDto> {

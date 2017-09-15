@@ -6,6 +6,9 @@ import ru.text.nastya.domain.entities.base.Identity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Зависимая сущность от {@link PostRegister}
+ */
 @Entity
 @Table(name = "commentary")
 public class Commentary extends Identity {

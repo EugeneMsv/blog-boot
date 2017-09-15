@@ -11,4 +11,13 @@ import ru.text.nastya.dto.TagDto;
         withIgnoreMissing = IgnoreMissing.ALL,
         withIgnoreNullValue = true)
 public interface TagMapper extends EntityMapper<Tag, TagDto> {
+
+    @Override
+    Tag mapToEntity(TagDto dto);
+
+    @Override
+    Tag updateEntityWithDto(TagDto dto, Tag entity);
+
+    @Override
+    TagDto mapToDto(Tag entity);
 }

@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Зависимая сущность от {@link PostRegister}, но можно создать регистр одновременно с Post
+ */
 @Entity
 @Table(name = "post")
 public class Post extends Identity {

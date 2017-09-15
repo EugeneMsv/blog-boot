@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 
 import static javax.persistence.CascadeType.*;
 
+/**
+ * Основная сущность
+ */
 @Entity
 @Table(name = "post_register")
 public class PostRegister extends Identity {

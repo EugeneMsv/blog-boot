@@ -5,6 +5,9 @@ import ru.text.nastya.domain.entities.base.Identity;
 
 import javax.persistence.*;
 
+/**
+ * Зависимая сущность от {@link Post}
+ */
 @Entity
 @Table(name = "attachment")
 public class Attachment extends Identity {
