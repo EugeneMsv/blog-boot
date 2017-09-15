@@ -3,22 +3,20 @@ package ru.text.nastya.web.controllers.base;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.services.CrudService;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
+import ru.text.nastya.exception.DataNotFoundException;
 import ru.text.nastya.profiling.Profiling;
-import ru.text.nastya.web.controllers.utils.ResponseUtils;
 
 import java.util.Optional;
 
 @Profiling(showArgs = true, timeRecord = true, showOutput = true)
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
-
-    protected ResponseUtils responseUtils = ResponseUtils.getInstance();
 
     protected abstract CrudService<E> getCrudService();
 
@@ -37,18 +35,20 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<D> save(@RequestBody D request) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public D save(@RequestBody D request) {
         E entity = Optional.ofNullable(request)
                 .map(this::toEntity)
                 .orElseThrow(() -> new IllegalArgumentException("Input for save is null"));
         E result = getCrudService().save(entity);
-        return responseUtils.created(toDto(result));
+        return toDto(result);
     }
 
 
     @PutMapping(value = {"{id}"},
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<D> update(@PathVariable Long id, @RequestBody D request) {
+    @ResponseStatus(HttpStatus.OK)
+    public D update(@PathVariable Long id, @RequestBody D request) {
         checkDtoForUpdate(request);
         request.setId(id);
         E entity;
@@ -63,31 +63,33 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
                 entity = getCrudService().save(toEntity(request));
             }
         }
-        return responseUtils.ok(toDto(entity));
+        return toDto(entity);
     }
 
 
     @DeleteMapping(value = {"{id}"},
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity remove(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove(@PathVariable Long id) {
         getCrudService().delete(id);
-        return responseUtils.noContent();
     }
 
 
     @GetMapping(value = {"{id}"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<D> get(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public D get(@PathVariable Long id) {
         Optional<E> founded = getCrudService().findOne(id);
-        return founded.map((e) -> responseUtils.ok(toDto(e)))
-                .orElse(responseUtils.notFound());
+        return founded.map(this::toDto)
+                .orElseThrow(DataNotFoundException::new);
     }
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Page<D>> findAll(Pageable pageable) {
+    @ResponseStatus(HttpStatus.OK)
+    public Page<D> findAll(Pageable pageable) {
         Page<E> entityPage = this.getCrudService().findAll(pageable);
         Page<D> dtos = entityPage.map(this::toDto);
-        return responseUtils.ok(dtos);
+        return dtos;
     }
 
     protected void checkDtoForUpdate(D dto) {

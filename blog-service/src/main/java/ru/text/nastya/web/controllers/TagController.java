@@ -35,7 +35,7 @@ public class TagController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Tag> readById(@PathVariable Long id) {
         return tagService.findOne(id).map(ResponseEntity::ok)
-                .orElseThrow(() -> new DataNotFoundException(HttpStatus.NOT_FOUND, "Тег c id = " + id + " не найден"));
+                .orElseThrow(DataNotFoundException::new);
     }
 
     @LoggableCall(logLevel = LogLevel.INFO, showArgs = true, timeRecord = true, showOutput = true)
