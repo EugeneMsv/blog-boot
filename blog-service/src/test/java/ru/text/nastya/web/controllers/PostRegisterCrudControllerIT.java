@@ -6,7 +6,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import ru.text.nastya.BaseControllerIT;
 import ru.text.nastya.dto.PostRegisterDto;
 import ru.text.nastya.utils.TestPageImpl;
@@ -16,8 +15,6 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.text.nastya.utils.AssertionUtils.assertReflectionEquals;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.getPostRegisterBuilder;
@@ -46,8 +43,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerIT {
     }
 
     @Test
-    public void test_findAllPostRegister() throws Exception {
-
+    public void test_findAllPostRegister() {
         // Save
         PostRegisterDto postRegisterDto = buildRandomPostRegister();
         PostRegisterDto saveResponse = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
@@ -65,7 +61,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerIT {
 
 
     @Test
-    public void test_getPostRegister() throws Exception {
+    public void test_getPostRegister() {
         // Save
         PostRegisterDto postRegisterDto = buildRandomPostRegister();
         PostRegisterDto saveResponse = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
@@ -77,7 +73,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerIT {
     }
 
     @Test
-    public void test_deletePostRegister() throws Exception {
+    public void test_deletePostRegister() {
         PostRegisterDto postRegisterDto = buildRandomPostRegister();
         PostRegisterDto saveResponse = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
         assertReflectionEquals(postRegisterDto, saveResponse, "id");
@@ -87,6 +83,36 @@ public class PostRegisterCrudControllerIT extends BaseControllerIT {
         Page<PostRegisterDto> page = doFindAllRequest(urlPrefix, new TypeReference<TestPageImpl<PostRegisterDto>>() {
         });
         assertFalse(page.hasContent());
+    }
+
+    @Test
+    public void test_updatePostRegister() throws Exception {
+        PostRegisterDto postRegisterDto = buildRandomPostRegister();
+        PostRegisterDto beforeUpdate = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
+        assertReflectionEquals(postRegisterDto, beforeUpdate, "id");
+
+        PostRegisterDto dtoForUpdate = new PostRegisterDto();
+        dtoForUpdate.setLikes(postRegisterDto.getLikes() + 1);
+        dtoForUpdate.setViews(postRegisterDto.getViews() + 1);
+        dtoForUpdate.setCreatedTime(postRegisterDto.getCreatedTime().plusMinutes(10));
+
+        assertNotEquals(beforeUpdate.getLikes(), dtoForUpdate.getLikes());
+        assertNotEquals(beforeUpdate.getViews(), dtoForUpdate.getViews());
+        assertNotEquals(beforeUpdate.getCreatedTime(), dtoForUpdate.getCreatedTime());
+        assertNull(dtoForUpdate.getCommentsNum());
+        assertNull(dtoForUpdate.getMetaInfo());
+        assertNull(dtoForUpdate.getPreview());
+
+        PostRegisterDto updatedPostRegister = doUpdateRequest(urlPrefix, beforeUpdate.getId(), dtoForUpdate,
+                PostRegisterDto.class);
+
+        assertEquals(dtoForUpdate.getLikes(), updatedPostRegister.getLikes());
+        assertEquals(dtoForUpdate.getViews(), updatedPostRegister.getViews());
+        assertEquals(dtoForUpdate.getCreatedTime(), updatedPostRegister.getCreatedTime());
+        assertEquals(beforeUpdate.getCommentsNum(), updatedPostRegister.getCommentsNum());
+        assertEquals(beforeUpdate.getMetaInfo(), updatedPostRegister.getMetaInfo());
+        assertEquals(beforeUpdate.getPreview(), updatedPostRegister.getPreview());
+
     }
 
 

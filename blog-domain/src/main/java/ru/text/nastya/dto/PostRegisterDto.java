@@ -9,8 +9,6 @@ public class PostRegisterDto extends IdentityDto {
 
     private static final long serialVersionUID = -6241819091243049677L;
 
-    private PostDto post;
-
     private String preview;
 
     private Long likes;
@@ -22,14 +20,6 @@ public class PostRegisterDto extends IdentityDto {
     private LocalDateTime createdTime;
 
     private String metaInfo;
-
-    public PostDto getPost() {
-        return post;
-    }
-
-    public void setPost(PostDto post) {
-        this.post = post;
-    }
 
     public String getPreview() {
         return preview;

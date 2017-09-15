@@ -124,4 +124,19 @@ public class BaseControllerIT {
             throw new RuntimeException(e);
         }
     }
+
+    protected <D extends IdentityDto> D doUpdateRequest(String url, Long id, D instance, Class<D> dtoClass) {
+        try {
+            String updateJson = jsonMapper.writeValueAsString(instance);
+            MvcResult mvcUpdateResult = mvc.perform(put(url + "/{id}", id)
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .content(updateJson))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            String responseJson = mvcUpdateResult.getResponse().getContentAsString();
+            return jsonMapper.readValue(responseJson, dtoClass);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
