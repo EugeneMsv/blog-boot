@@ -65,11 +65,15 @@ public class AssertionUtils {
     }
 
     public static void assertFieldsEquals(Tag expected, Tag actual) {
-        boolean equals = new EqualsBuilder()
-                .append(expected.getCode(), actual.getCode())
-                .append(expected.getDescription(), actual.getDescription())
-                .isEquals();
+        boolean equals = isFieldsEquals(expected, actual);
         throwAssertionError(equals);
+    }
+
+    public static boolean isFieldsEquals(Tag expected, Tag actual) {
+        return new EqualsBuilder()
+                    .append(expected.getCode(), actual.getCode())
+                    .append(expected.getDescription(), actual.getDescription())
+                    .isEquals();
     }
 
     public static void assertFieldsEquals(Attachment expected, Attachment actual) {

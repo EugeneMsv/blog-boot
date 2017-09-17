@@ -47,7 +47,7 @@ public class PostManagerImpl implements PostManager {
         Validate.notNull(postRegisterId, "Post register id must be set");
         Optional<Post> postOpt = postRepository.findByPostRegisterId(postRegisterId);
         if (postOpt.isPresent()) {
-            postRepository.delete(postRegisterId);
+            postRepository.delete(postOpt.get().getId());
         } else {
             throw new DataNotFoundException("Not found post for register with id = " + postRegisterId);
         }
@@ -57,7 +57,6 @@ public class PostManagerImpl implements PostManager {
     public Post getPost(Long postRegisterId) {
         Validate.notNull(postRegisterId, "Post register id must be set");
         Optional<Post> postOpt = postRepository.findByPostRegisterId(postRegisterId);
-        return postOpt.orElseThrow(
-                () -> new DataNotFoundException("Not found post for register with id = " + postRegisterId));
+        return postOpt.orElse(null);
     }
 }

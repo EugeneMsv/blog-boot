@@ -41,4 +41,8 @@ public class DomainEntityBuilder {
     public static PostRegisterBuilder getPostRegisterBuilder() {
         return new PostRegisterBuilder();
     }
+
+    public static PostBuilder getPostBuilder() {
+        return new PostBuilder();
+    }
 }

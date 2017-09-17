@@ -1,4 +1,4 @@
-package ru.text.nastya.domain.services.impl;
+package ru.text.nastya.domain.services.manager.impl;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;

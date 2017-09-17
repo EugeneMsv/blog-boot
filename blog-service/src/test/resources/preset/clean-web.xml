@@ -1,6 +1,7 @@
 <dataset>
     <tag/>
-    <post/>
     <post_register/>
+    <post/>
+    <post_tag/>
     <commentary/>
 </dataset>
