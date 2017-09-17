@@ -15,7 +15,7 @@ public interface PostRegisterCrudService extends CrudService<PostRegister> {
 
     Page<Commentary> findAllCommentaries(Long postRegisterId, Pageable pageable);
 
-    Post addPost(Long postRegisterId, Post commentary);
+    Post addPost(Long postRegisterId, Post post);
 
     void removePost(Long postRegisterId);
 

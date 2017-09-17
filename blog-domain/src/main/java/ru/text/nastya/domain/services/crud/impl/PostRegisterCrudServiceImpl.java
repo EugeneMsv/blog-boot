@@ -11,6 +11,7 @@ import ru.text.nastya.domain.repositories.PersistedEntityRepository;
 import ru.text.nastya.domain.repositories.PostRegisterRepository;
 import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 import ru.text.nastya.domain.services.manager.CommentaryManager;
+import ru.text.nastya.domain.services.manager.PostManager;
 
 @Service
 public class PostRegisterCrudServiceImpl extends AbstractCrudServiceImpl<PostRegister>
@@ -20,11 +21,15 @@ public class PostRegisterCrudServiceImpl extends AbstractCrudServiceImpl<PostReg
 
     private final CommentaryManager commentaryManager;
 
+    private final PostManager postManager;
+
     @Autowired
     public PostRegisterCrudServiceImpl(PostRegisterRepository postRegisterRepository,
-                                       CommentaryManager commentaryManager) {
+                                       CommentaryManager commentaryManager,
+                                       PostManager postManager) {
         this.postRegisterRepository = postRegisterRepository;
         this.commentaryManager = commentaryManager;
+        this.postManager = postManager;
     }
 
     @Override
@@ -48,19 +53,18 @@ public class PostRegisterCrudServiceImpl extends AbstractCrudServiceImpl<PostReg
         return commentaryManager.findAllFromPostRegister(postRegisterId, pageable);
     }
 
-    // TODO: 15.09.2017 Добавить postManager
     @Override
-    public Post addPost(Long postRegisterId, Post commentary) {
-        throw new UnsupportedOperationException();
+    public Post addPost(Long postRegisterId, Post post) {
+        return postManager.addPost(postRegisterId, post);
     }
 
     @Override
     public void removePost(Long postRegisterId) {
-        throw new UnsupportedOperationException();
+        postManager.removePost(postRegisterId);
     }
 
     @Override
     public Post getPost(Long postRegisterId) {
-        throw new UnsupportedOperationException();
+        return postManager.getPost(postRegisterId);
     }
 }
