@@ -1,9 +1,14 @@
 package ru.text.nastya.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import ru.text.nastya.domain.entities.PostState;
-import ru.text.nastya.domain.entities.Tag;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.collection.ListWrapper;
+import ru.text.nastya.dto.validation.groups.Create;
+import ru.text.nastya.dto.validation.groups.Update;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public class PostDto extends IdentityDto {
 
@@ -11,16 +16,21 @@ public class PostDto extends IdentityDto {
 
     private String code;
 
+    @NotEmpty(groups = {Create.class, Update.class})
     private String title;
 
+    @NotEmpty(groups = {Create.class, Update.class})
     private String text;
 
     private ListWrapper<TagDto> tags;
 
+    @NotEmpty(groups = {Create.class, Update.class})
     private String author;
 
     private PostState state;
 
+    @NotNull(groups = {Create.class, Update.class})
+    @Valid
     private PostRegisterDto postRegister;
 
     public String getCode() {

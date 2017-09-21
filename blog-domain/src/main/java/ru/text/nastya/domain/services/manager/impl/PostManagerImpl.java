@@ -3,6 +3,7 @@ package ru.text.nastya.domain.services.manager.impl;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.text.nastya.domain.entities.Post;
 import ru.text.nastya.domain.entities.PostRegister;
 import ru.text.nastya.domain.repositories.PostRegisterRepository;
@@ -10,7 +11,6 @@ import ru.text.nastya.domain.repositories.PostRepository;
 import ru.text.nastya.domain.services.manager.PostManager;
 import ru.text.nastya.exception.DataNotFoundException;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -53,6 +53,7 @@ public class PostManagerImpl implements PostManager {
         }
     }
 
+    @Transactional(readOnly=true)
     @Override
     public Post getPost(Long postRegisterId) {
         Validate.notNull(postRegisterId, "Post register id must be set");
