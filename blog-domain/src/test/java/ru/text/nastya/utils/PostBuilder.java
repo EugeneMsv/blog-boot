@@ -11,11 +11,24 @@ import ru.text.nastya.dto.mapper.collection.ListWrapper;
 
 import java.util.List;
 
+import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
+import static ru.text.nastya.utils.DomainEntityBuilder.getPostBuilder;
+
 public class PostBuilder {
 
     private Post post;
 
     private PostDto postDto;
+
+    public PostDto randomDto(PostRegisterDto registerDto, ListWrapper<TagDto> tags) {
+        return getPostBuilder().dto(buildRandomString())
+                .state(PostState.NEW)
+                .main(buildRandomString())
+                .head(buildRandomString(), buildRandomString())
+                .register(registerDto)
+                .tags(tags)
+                .buildDto();
+    }
 
     public PostBuilder entity(String code) {
         this.post = new Post();

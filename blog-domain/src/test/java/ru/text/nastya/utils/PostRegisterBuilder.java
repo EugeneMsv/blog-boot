@@ -5,11 +5,30 @@ import ru.text.nastya.dto.PostRegisterDto;
 
 import java.time.LocalDateTime;
 
+import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
+import static ru.text.nastya.utils.DomainEntityBuilder.rand;
+
 public class PostRegisterBuilder {
 
     private PostRegister postRegister;
 
     private PostRegisterDto postRegisterDto;
+
+    public PostRegisterDto randomDto() {
+        return dto()
+                .general(rand.nextLong(), rand.nextLong(), rand.nextLong())
+                .info(buildRandomString(), LocalDateTime.now())
+                .meta(buildRandomString())
+                .buildDto();
+    }
+
+    public PostRegister random() {
+        return entity()
+                .general(rand.nextLong(), rand.nextLong(), rand.nextLong())
+                .info(buildRandomString(), LocalDateTime.now())
+                .meta(buildRandomString())
+                .buildEntity();
+    }
 
     public PostRegisterBuilder entity() {
         this.postRegister = new PostRegister();

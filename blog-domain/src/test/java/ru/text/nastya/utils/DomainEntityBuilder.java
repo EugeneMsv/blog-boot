@@ -13,7 +13,7 @@ public class DomainEntityBuilder {
         throw new UnsupportedOperationException();
     }
 
-    private static final Random rand = new Random(System.nanoTime());
+    public static final Random rand = new Random(System.nanoTime());
 
     public static String buildRandomString() {
         return UUID.randomUUID().toString();
@@ -44,5 +44,9 @@ public class DomainEntityBuilder {
 
     public static PostBuilder getPostBuilder() {
         return new PostBuilder();
+    }
+
+    public static TagBuilder getTagBuilder() {
+        return new TagBuilder();
     }
 }

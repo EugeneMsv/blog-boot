@@ -28,11 +28,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerIT {
     private static final String urlPrefix = "/postRegister";
 
     private PostRegisterDto buildRandomPostRegister() {
-        return getPostRegisterBuilder().dto()
-                .general(rand.nextLong(), rand.nextLong(), rand.nextLong())
-                .info(buildRandomString(), LocalDateTime.now())
-                .meta(buildRandomString())
-                .buildDto();
+        return getPostRegisterBuilder().randomDto();
     }
 
     @Test

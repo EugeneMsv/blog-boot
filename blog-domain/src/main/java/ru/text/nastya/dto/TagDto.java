@@ -10,6 +10,14 @@ public class TagDto extends IdentityDto {
 
     private String description;
 
+    public TagDto() {
+    }
+
+    public TagDto(String code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
     public String getCode() {
         return code;
     }
