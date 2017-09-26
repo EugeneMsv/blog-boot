@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
-    @RequestMapping(path = "/index", method = RequestMethod.GET)
+    //todo не работает viewResolver
+    @RequestMapping(path = "/root", method = RequestMethod.GET)
     public String index() {
         System.out.println("MainController.index");
         return "index";

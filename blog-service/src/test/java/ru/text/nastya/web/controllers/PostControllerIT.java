@@ -19,7 +19,7 @@ import static ru.text.nastya.utils.DomainEntityBuilder.*;
 
 @DatabaseSetups({
         @DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL),})
-public class PostControllerTest extends BaseControllerIT {
+public class PostControllerIT extends BaseControllerIT {
 
     private static final String urlPrefix = "/postRegister/{registerId}/post";
 
