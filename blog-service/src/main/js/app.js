@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const client = require('./client');
+const axios = require('axios');
 
 class App extends React.Component {
 
@@ -10,9 +10,15 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        client({method: 'GET', path: '/postRegister'}).done(response => {
-            this.setState({postRegisters: response.entity.content});
-        });
+        axios.get('/postRegister')
+            .then(response => {
+                const page = response.data;
+                this.setState({postRegisters: page.content});
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
     }
 
     render() {
