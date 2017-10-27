@@ -24,8 +24,8 @@ class App extends React.Component {
 
 class PostRegisterList extends React.Component {
     render() {
-        var postRegisters = this.props.postRegisters.map(postRegister =>
-            <PostRegister key="1" postRegister={postRegister}/>
+        const postRegisters = this.props.postRegisters.map(postRegister =>
+            <PostRegister key={postRegister.id.toString()} postRegister={postRegister}/>
         );
         return (
             <table>
@@ -61,4 +61,4 @@ class PostRegister extends React.Component {
 ReactDOM.render(
     <App />,
     document.getElementById('react')
-)
+);
