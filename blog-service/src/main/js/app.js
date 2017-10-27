@@ -1,6 +1,9 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const axios = require('axios');
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class App extends React.Component {
 
@@ -23,7 +26,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <PostRegisterList postRegisters={this.state.postRegisters}/>
+            <MuiThemeProvider>
+                <RaisedButton label="Default"/>
+                {/*<PostRegisterList postRegisters={this.state.postRegisters}/>*/}
+            </MuiThemeProvider>
         )
     }
 }
