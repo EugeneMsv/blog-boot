@@ -3,31 +3,20 @@ const ReactDOM = require('react-dom');
 const axios = require('axios');
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import PostForm from './component/PostForm';
 
 
 class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {postRegisters: []};
     }
 
-    componentDidMount() {
-        axios.get('/postRegister')
-            .then(response => {
-                const page = response.data;
-                this.setState({postRegisters: page.content});
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
-    }
 
     render() {
         return (
             <MuiThemeProvider>
-                <RaisedButton label="Default"/>
+                <PostForm/>
                 {/*<PostRegisterList postRegisters={this.state.postRegisters}/>*/}
             </MuiThemeProvider>
         )
