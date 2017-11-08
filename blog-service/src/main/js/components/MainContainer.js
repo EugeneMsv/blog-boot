@@ -3,6 +3,10 @@ import AppBar from 'material-ui/AppBar';
 import axios from 'axios';
 import {indigo400} from 'material-ui/styles/colors';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 import {
     Table,
     TableBody,
@@ -44,7 +48,7 @@ class MainContainer extends React.Component {
     }
 }
 
-export default MainContainer;
+exports.default = MainContainer;
 
 
 class PostRegisterTable extends React.Component {
