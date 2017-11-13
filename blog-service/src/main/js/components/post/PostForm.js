@@ -49,6 +49,7 @@ class PostForm extends React.Component {
                     multiLine={true}
                     rows={2}
                     value={this.state.form.text}
+                    fullWidth={true}
                     onChange={(e) => this.handleChange(e, "text")}/>
                 <br/>
                 <TextField floatingLabelText="Код"
@@ -60,4 +61,4 @@ class PostForm extends React.Component {
     }
 }
 
-exports.default = PostForm;
+export default PostForm;
