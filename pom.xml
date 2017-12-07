@@ -35,6 +35,7 @@
         <jetbrains.annotation.version>13.0</jetbrains.annotation.version>
         <apt.maven.plugin>1.1.3</apt.maven.plugin>
         <frontend.maven.plugin>1.6</frontend.maven.plugin>
+        <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -192,7 +193,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${maven.jar.plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>

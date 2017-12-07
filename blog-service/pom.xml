@@ -15,6 +15,9 @@
 
     <properties>
         <profile.configuration>default</profile.configuration>
+        <front.node.version>v8.9.1</front.node.version>
+        <front.npm.version>5.5.1</front.npm.version>
+
     </properties>
 
     <dependencies>
@@ -46,6 +49,12 @@
         <dependency>
             <groupId>fr.xebia.extras</groupId>
             <artifactId>selma-processor</artifactId>
+        </dependency>
+
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- documentation REST API -->
@@ -121,8 +130,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v8.9.1</nodeVersion>
-                            <npmVersion>5.5.1</npmVersion>
+                            <nodeVersion>${front.node.version}</nodeVersion>
+                            <npmVersion>${front.npm.version}</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
