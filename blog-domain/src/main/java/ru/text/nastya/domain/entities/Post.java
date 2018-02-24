@@ -23,7 +23,7 @@ public class Post extends Identity {
     private String title;
 
     @Lob
-    @Column(name = "text", nullable = false, columnDefinition = "LONGTEXT")
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @ManyToMany

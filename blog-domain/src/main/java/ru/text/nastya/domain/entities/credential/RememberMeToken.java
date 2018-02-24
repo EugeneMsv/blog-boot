@@ -4,11 +4,14 @@ import ru.text.nastya.domain.entities.base.Identity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "remember_token")
+@Table(name = "remember_token", indexes = {
+        @Index(name = "remember_token_series_idx", columnList = "series"),
+        @Index(name = "remember_token_user_name_idx", columnList = "user_name")})
 public class RememberMeToken extends Identity {
 
     private static final long serialVersionUID = 1;
