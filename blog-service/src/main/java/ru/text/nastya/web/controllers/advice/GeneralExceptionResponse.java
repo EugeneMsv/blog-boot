@@ -10,6 +10,9 @@ public class GeneralExceptionResponse {
 
     private String possibleSolution;
 
+    private String stackTrace;
+
+    private String exceptionName;
 
     public String getRequestUrl() {
         return requestUrl;
@@ -41,6 +44,22 @@ public class GeneralExceptionResponse {
 
     public void setPossibleSolution(String possibleSolution) {
         this.possibleSolution = possibleSolution;
+    }
+
+    public String getStackTrace() {
+        return stackTrace;
+    }
+
+    public void setStackTrace(String stackTrace) {
+        this.stackTrace = stackTrace;
+    }
+
+    public String getExceptionName() {
+        return exceptionName;
+    }
+
+    public void setExceptionName(String exceptionName) {
+        this.exceptionName = exceptionName;
     }
 
     @Override
