@@ -19,9 +19,7 @@ import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import static ru.text.nastya.utils.AssertionUtils.assertFieldsEquals;
-import static ru.text.nastya.utils.AssertionUtils.assertPersist;
-import static ru.text.nastya.utils.AssertionUtils.assertReflectionEquals;
+import static ru.text.nastya.utils.AssertionUtils.*;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomTag;
 
@@ -55,7 +53,7 @@ public class TagCrudServiceImplIT extends BaseServiceIT {
         assertPersist(found);
         assertFieldsEquals(saved, found);
         //update
-        found.setDescription(buildRandomString());
+        found.setName(buildRandomString());
 
         Tag updated = tagCrudService.save(found);
 

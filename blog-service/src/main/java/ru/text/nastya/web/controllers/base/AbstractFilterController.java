@@ -13,7 +13,7 @@ import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.services.filter.FilteredEntityService;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
-import ru.text.nastya.Filter;
+import ru.text.nastya.filters.Filter;
 import ru.text.nastya.profiling.Profiling;
 
 @Profiling(showArgs = true, timeRecord = true, showOutput = true)

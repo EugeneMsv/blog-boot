@@ -4,7 +4,7 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import ru.text.nastya.domain.entities.QTag;
-import ru.text.nastya.TagFilter;
+import ru.text.nastya.filters.TagFilter;
 import ru.text.nastya.specifications.criteria.BooleanExpressionBuilder;
 
 /**

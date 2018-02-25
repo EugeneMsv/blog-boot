@@ -1,14 +1,25 @@
 package ru.text.nastya.domain.entities.base;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Dictionary extends Identity {
 
+    @Column(name = "code", nullable = false, unique = true)
     protected String code;
 
+    @Column(name = "name")
     protected String name;
+
+    public Dictionary() {
+    }
+
+    public Dictionary(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 
     public String getCode() {
         return code;

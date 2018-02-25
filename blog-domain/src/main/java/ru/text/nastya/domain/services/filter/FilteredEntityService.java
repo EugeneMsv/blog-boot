@@ -1,9 +1,9 @@
 package ru.text.nastya.domain.services.filter;
 
-import ru.text.nastya.domain.entities.base.Identity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import ru.text.nastya.Filter;
+import ru.text.nastya.domain.entities.base.Identity;
+import ru.text.nastya.filters.Filter;
 
 import java.util.Optional;
 

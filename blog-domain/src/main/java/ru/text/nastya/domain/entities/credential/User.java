@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user_cred")
+@Table(name = "user_cred", indexes = {
+        @Index(name = "user_cred_sso_idx", columnList = "sso_id", unique = true)})
 public class User extends Identity {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "login", nullable = false, unique = true)
-    private String login;
+    @Column(name = "sso_id", nullable = false, unique = true)
+    private String ssoId;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -26,12 +27,12 @@ public class User extends Identity {
     @JoinColumn(name = "user_id")
     private List<UserGroup> groups;
 
-    public String getLogin() {
-        return login;
+    public String getSsoId() {
+        return ssoId;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
     }
 
     public String getPassword() {

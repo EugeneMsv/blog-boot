@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import ru.text.nastya.domain.entities.QPost;
-import ru.text.nastya.PostFilter;
+import ru.text.nastya.filters.PostFilter;
 import ru.text.nastya.specifications.criteria.BooleanExpressionBuilder;
 
 import java.util.Objects;

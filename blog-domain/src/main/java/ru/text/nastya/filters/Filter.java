@@ -1,4 +1,4 @@
-package ru.text.nastya;
+package ru.text.nastya.filters;
 
 import java.io.Serializable;
 

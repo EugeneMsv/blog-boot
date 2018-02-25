@@ -72,7 +72,7 @@ public class AssertionUtils {
     public static boolean isFieldsEquals(Tag expected, Tag actual) {
         return new EqualsBuilder()
                     .append(expected.getCode(), actual.getCode())
-                    .append(expected.getDescription(), actual.getDescription())
+                .append(expected.getName(), actual.getName())
                     .isEquals();
     }
 

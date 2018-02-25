@@ -1,14 +1,14 @@
 package ru.text.nastya.domain.services.filter.impl;
 
-import ru.text.nastya.Filter;
-import ru.text.nastya.domain.entities.base.Identity;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.repositories.PersistedEntityRepository;
+import ru.text.nastya.filters.Filter;
 
 import java.util.Optional;
 

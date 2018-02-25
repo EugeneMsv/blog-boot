@@ -3,11 +3,13 @@ package ru.text.nastya.domain.repositories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 import ru.text.nastya.domain.entities.base.Identity;
 
 import java.util.Optional;
 
+@NoRepositoryBean
 public interface PersistedEntityRepository<T extends Identity>
         extends Repository<T, Long>, QueryDslPredicateExecutor<T> {
 
