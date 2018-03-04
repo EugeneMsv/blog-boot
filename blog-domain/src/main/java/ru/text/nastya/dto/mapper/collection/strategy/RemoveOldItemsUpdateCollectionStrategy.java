@@ -27,6 +27,12 @@ public class RemoveOldItemsUpdateCollectionStrategy implements UpdateCollectionS
                                                                                        EntityMapper<E, D> entityMapper,
                                                                                        Predicate<D> isNewPredicate,
                                                                                        BiPredicate<E, D> isEqualsPredicate) {
+        return updateCollectionWithDto(dtos, entities, entityMapper);
+    }
+
+    public <E extends Identity, D extends IdentityDto> List<E> updateCollectionWithDto(List<D> dtos,
+                                                                                       List<E> entities,
+                                                                                       EntityMapper<E, D> entityMapper) {
         entities.clear();
         if (CollectionUtils.isEmpty(dtos)) {
             return entities;
