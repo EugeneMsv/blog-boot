@@ -13,6 +13,17 @@ public class UserGroup extends Dictionary {
 
     private static final long serialVersionUID = 1L;
 
+    public UserGroup() {
+    }
+
+    public UserGroup(String code, String name) {
+        super(code, name);
+    }
+
+    public UserGroup(String code) {
+        super(code);
+    }
+
     @OneToMany
     @JoinColumn(name = "user_group_id")
     private List<UserRole> roles;

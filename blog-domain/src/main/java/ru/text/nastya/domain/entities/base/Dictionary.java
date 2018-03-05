@@ -21,6 +21,10 @@ public abstract class Dictionary extends Identity {
         this.name = name;
     }
 
+    public Dictionary(String code) {
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }
@@ -49,5 +53,14 @@ public abstract class Dictionary extends Identity {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), code);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{code='");
+        sb.append(code).append('\'');
+        sb.append(", id=").append(id);
+        sb.append('}');
+        return sb.toString();
     }
 }

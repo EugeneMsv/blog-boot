@@ -9,7 +9,7 @@ public abstract class Identity implements Persistable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Transient
     @Override

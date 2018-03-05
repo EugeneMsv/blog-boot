@@ -1,21 +1,38 @@
 package ru.text.nastya.domain.services.crud.impl;
 
-import ru.text.nastya.domain.entities.base.Identity;
-import ru.text.nastya.domain.repositories.PersistedEntityRepository;
+import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import ru.text.nastya.domain.entities.base.Identity;
+import ru.text.nastya.domain.repositories.PersistedEntityRepository;
+import ru.text.nastya.util.ValidationMessages;
 
 import java.util.Optional;
 
 // TODO: 24.07.2017 тестировать
 public abstract class AbstractCrudServiceImpl<E extends Identity> {
 
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
     protected abstract PersistedEntityRepository<E> getRepository();
 
     @Transactional
     public E save(E target) {
-        return getRepository().save(target);
+        Validate.notNull(target, ValidationMessages.NOT_NULL, "saving " + target.getClass());
+        logger.info("Save entity with id={}", target.getId());
+        if (logger.isTraceEnabled()) {
+            logger.trace("Full entity for save {}", target);
+        }
+        E saved = getRepository().save(preSaveAction(target));
+        logger.info("Saved entity with id={}", saved.getId());
+        return saved;
+    }
+
+    protected E preSaveAction(E target) {
+        return target;
     }
 
     @Transactional(readOnly = true)
@@ -25,21 +42,32 @@ public abstract class AbstractCrudServiceImpl<E extends Identity> {
 
     @Transactional
     public void delete(Long id) {
+        Validate.notNull(id, ValidationMessages.NOT_NULL, "id");
+        logger.info("Save entity with id={}", id);
         getRepository().delete(id);
+        logger.info("Deleted entity with id={}", id);
     }
 
     @Transactional
     public void deleteAll() {
+        logger.info("Delete all entities");
         getRepository().deleteAll();
     }
 
     @Transactional(readOnly = true)
     public Optional<E> findOne(Long id) {
-        return getRepository().findOne(id);
+        Validate.notNull(id, ValidationMessages.NOT_NULL, "id");
+        logger.info("Find entity with id={}", id);
+        Optional<E> found = getRepository().findOne(id);
+        if (logger.isTraceEnabled()) {
+            logger.trace("Full entity find {}", found);
+        }
+        return found;
     }
 
     @Transactional(readOnly = true)
     public Page<E> findAll(Pageable pageable) {
+        Validate.notNull(pageable, ValidationMessages.NOT_NULL, "page");
         return getRepository().findAll(pageable);
     }
 }
