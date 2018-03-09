@@ -1,4 +1,4 @@
-package ru.text.nastya.web.controllers;
+package ru.text.nastya.web.controllers.crud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

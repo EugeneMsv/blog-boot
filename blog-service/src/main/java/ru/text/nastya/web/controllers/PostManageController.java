@@ -14,14 +14,14 @@ import ru.text.nastya.dto.validation.groups.Update;
 
 @RestController
 @RequestMapping("postRegister/{registerId}/post")
-public class PostController {
+public class PostManageController {
 
     private final PostRegisterCrudService postRegisterCrudService;
 
     private final PostMapper postMapper;
 
     @Autowired
-    public PostController(PostRegisterCrudService postRegisterCrudService, PostMapper postMapper) {
+    public PostManageController(PostRegisterCrudService postRegisterCrudService, PostMapper postMapper) {
         this.postRegisterCrudService = postRegisterCrudService;
         this.postMapper = postMapper;
     }

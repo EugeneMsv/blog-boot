@@ -11,11 +11,10 @@ import ru.text.nastya.domain.services.crud.CrudService;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
 import ru.text.nastya.exception.DataNotFoundException;
-import ru.text.nastya.profiling.Profiling;
 
 import java.util.Optional;
 
-@Profiling(showArgs = true, timeRecord = true, showOutput = true)
+//@Profiling(showArgs = true, timeRecord = true, showOutput = true)
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
 
     protected abstract CrudService<E> getCrudService();

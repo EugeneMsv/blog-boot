@@ -20,11 +20,15 @@ public class User extends Identity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private UserStatus status;
 
     @OneToMany
-    @JoinColumn(name = "user_id")
+    @JoinTable(
+            name = "user_cred_user_group",
+            joinColumns = @JoinColumn(name = "user_cred_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_group_id")
+    )
     private List<UserGroup> groups;
 
     public String getSsoId() {

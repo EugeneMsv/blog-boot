@@ -1,11 +1,11 @@
-package ru.text.nastya.web.controllers;
+package ru.text.nastya.web.controllers.crud;
 
-import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.domain.services.crud.CrudService;
-import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.text.nastya.domain.entities.PostRegister;
+import ru.text.nastya.domain.services.crud.CrudService;
+import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 import ru.text.nastya.dto.PostRegisterDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
 import ru.text.nastya.dto.mapper.PostRegisterMapper;

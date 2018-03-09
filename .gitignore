@@ -7,3 +7,4 @@
 **/generated/
 *.db
 *.jar
+package.json

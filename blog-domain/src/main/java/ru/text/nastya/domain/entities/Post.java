@@ -27,6 +27,11 @@ public class Post extends Identity {
     private String text;
 
     @ManyToMany
+    @JoinTable(
+            name = "post_tag",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags;
 
     @Column(name = "author", nullable = false)

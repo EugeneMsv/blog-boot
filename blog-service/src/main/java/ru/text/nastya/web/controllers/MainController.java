@@ -33,4 +33,10 @@ public class MainController {
         System.out.println("MainController.home");
         return "home";
     }
+
+    @RequestMapping(path = "/denied", method = RequestMethod.GET)
+    public String denied() {
+        System.out.println("MainController.denied");
+        return "denied";
+    }
 }

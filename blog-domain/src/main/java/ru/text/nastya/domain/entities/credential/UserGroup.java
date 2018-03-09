@@ -25,7 +25,11 @@ public class UserGroup extends Dictionary {
     }
 
     @OneToMany
-    @JoinColumn(name = "user_group_id")
+    @JoinTable(
+            name = "user_group_user_role",
+            joinColumns = @JoinColumn(name = "user_group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_role_id")
+    )
     private List<UserRole> roles;
 
     public List<UserRole> getRoles() {
