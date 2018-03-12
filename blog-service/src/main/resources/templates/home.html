@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
-</head>
-<body>
-<h1>Welcome!</h1>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<head th:replace="layout :: site-head">
+    <title>Blog home</title>
+</head>
+
+<body>
+
+<header th:replace="layout :: site-header"/>
+
+<h1>Welcome to Blog</h1>
+Now is: <b th:text="${execInfo.now.time}">date and time</b>
+
+<footer th:replace="layout :: site-footer"/>
+
 </body>
+
 </html>

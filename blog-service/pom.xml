@@ -137,6 +137,12 @@
             <properties>
                 <profile.configuration>dev</profile.configuration>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>front-end</id>

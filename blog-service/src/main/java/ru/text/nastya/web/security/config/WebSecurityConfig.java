@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -38,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/", "/home", "/user/login", "/user/register",
+                        "/css/**", "/js/**", "/img/**").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/user*/**", "/h2-console*/**")
                 .access("hasRole('ADMIN')")
@@ -47,11 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
+                .successHandler(simpleUrlAuthenticationSuccessHandler())
                 .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
                 .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/denied")
                 .and()
-                .logout().permitAll();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/home").permitAll();
     }
 
     @Autowired
@@ -80,4 +84,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthenticationTrustResolverImpl();
     }
 
+
+    @Bean
+    public AuthenticationSuccessHandler simpleUrlAuthenticationSuccessHandler() {
+        return new SimpleUrlAuthenticationSuccessHandler("/home");
+    }
 }

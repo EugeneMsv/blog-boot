@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" href="../public/css/material.min.css" th:href="@{/css/material.min.css}"/>
+    <script src="../public/js/app.js" th:src="@{/js/app.js}"></script>
+    <meta th:include="this :: head" th:remove="tag"/>
+</head>
+
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" th:fragment="site-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Title</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="home.html" th:href="@{/}">Home</a>
+                <a class="mdl-navigation__link" href="user/login.html" th:href="@{/user/login}">Login</a>
+                <a class="mdl-navigation__link" href="user/register.html" th:href="@{/user/register}">Register</a>
+                <div id="logged-in-info">
+                    <span th:inline="text">[[${#httpServletRequest.remoteUser!=null?#httpServletRequest.remoteUser:"" }]]</span>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Log Out"/>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Title</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div class="page-content"><!-- Your content goes here --></div>
+    </main>
+</div>
+
+
+<!--<header th:fragment="site-header">
+    <a href="home.html" th:href="@{/}">Home</a>
+    <a href="user/login.html" th:href="@{/user/login}">Login</a>
+    <a href="user/register.html" th:href="@{/user/register}">Register</a>
+    <div id="logged-in-info">
+        <span th:inline="text">[[${#httpServletRequest.remoteUser!=null?#httpServletRequest.remoteUser:"" }]]</span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out"/>
+        </form>
+    </div>
+</header>-->
+
+<footer th:fragment="site-footer">
+    &copy; Eugene Moiseev, 2018
+</footer>
+</body>
+
+</html>

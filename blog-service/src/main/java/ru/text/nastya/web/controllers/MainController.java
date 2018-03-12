@@ -16,11 +16,6 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String login() {
-        System.out.println("MainController.login");
-        return "login";
-    }
 
     @RequestMapping(path = "/hello", method = RequestMethod.GET)
     public String hello(@AuthenticationPrincipal User user) {
@@ -28,15 +23,9 @@ public class MainController {
         return "hello";
     }
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    @RequestMapping(path = {"/home", "/"}, method = RequestMethod.GET)
     public String home() {
         System.out.println("MainController.home");
         return "home";
-    }
-
-    @RequestMapping(path = "/denied", method = RequestMethod.GET)
-    public String denied() {
-        System.out.println("MainController.denied");
-        return "denied";
     }
 }
