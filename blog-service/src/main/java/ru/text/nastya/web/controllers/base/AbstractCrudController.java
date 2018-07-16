@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.services.crud.CrudService;
@@ -20,6 +21,10 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     protected abstract CrudService<E> getCrudService();
 
     protected abstract EntityMapper<E, D> getEntityMapper();
+
+    protected String getModelParameter() {
+        return "FAILED";
+    }
 
     private E toEntity(D dto) {
         return getEntityMapper().mapToEntity(dto);
@@ -75,10 +80,11 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
 
     @GetMapping(value = {"{id}"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public D get(@PathVariable Long id) {
+    public String get(@PathVariable Long id, Model model) {
         Optional<E> founded = getCrudService().findOne(id);
-        return founded.map(this::toDto)
-                .orElseThrow(DataNotFoundException::new);
+        model.addAttribute(getModelParameter(), founded.map(this::toDto)
+                .orElseThrow(DataNotFoundException::new));
+        return getModelParameter();
     }
 
 
