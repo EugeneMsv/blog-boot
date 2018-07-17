@@ -17,6 +17,7 @@ import static ru.text.nastya.web.controllers.crud.PostRegisterCrudController.MOD
 @RequestMapping(MODEL_PARAMETER)
 public class PostRegisterCrudController extends AbstractCrudController<PostRegister, PostRegisterDto> {
 
+
     public static final String MODEL_PARAMETER = "postRegister";
 
     private final PostRegisterCrudService postRegisterCrudService;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="layout :: site-head">
+    <title>Blog login</title>
+</head>
+<body>
+<header th:replace="layout :: site-header"/>
+<div class="demo-blog demo-blog--blogpost mdl-layout mdl-js-layout has-drawer is-upgraded">
+    <main class="mdl-layout__content">
+        <div class="demo-blog__posts mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col"
+                 th:each="postRegister : ${postRegisterPage.getContent()}">
+                <div class="mdl-card__media mdl-color-text--grey-50" th:object="${postRegister}">
+                    <h3><a th:href="@{'postRegister/' + *{id} +'/post'}" href="entry.html" th:text="*{preview}">Title
+                        preview</a></h3>
+                </div>
+                <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta" th:object="${postRegister}">
+                    <div>
+                        <strong>Created</strong>
+                        <span th:text="*{createdTime}">2 days ago</span>
+                    </div>
+                    <div class="section-spacer"></div>
+                    <div class="meta__icons">
+                        <span th:text="*{likes}">0</span>
+                        <i class="material-icons" role="presentation">favorite</i>
+                        <span class="visuallyhidden">favorites</span>
+                    </div>
+                    <div class="meta__icons">
+                        <span th:text="*{views}">0</span>
+                        <i class="material-icons" role="presentation">visibility</i>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <div class="mdl-layout__obfuscator"></div>
+</div>
+<footer th:replace="layout :: site-footer"/>
+</body>
+</html>

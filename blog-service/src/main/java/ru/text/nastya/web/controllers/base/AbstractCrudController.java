@@ -18,6 +18,9 @@ import java.util.Optional;
 //@Profiling(showArgs = true, timeRecord = true, showOutput = true)
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
 
+    public static final String PAGE_POSTFIX = "Page";
+
+
     protected abstract CrudService<E> getCrudService();
 
     protected abstract EntityMapper<E, D> getEntityMapper();
@@ -90,10 +93,11 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Page<D> findAll(Pageable pageable) {
+    public String findAll(Pageable pageable, Model model) {
         Page<E> entityPage = this.getCrudService().findAll(pageable);
         Page<D> dtos = entityPage.map(this::toDto);
-        return dtos;
+        model.addAttribute(getModelParameter() + PAGE_POSTFIX, dtos);
+        return getModelParameter() + PAGE_POSTFIX;
     }
 
     protected void checkDtoForUpdate(D dto) {
