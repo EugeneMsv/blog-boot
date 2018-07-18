@@ -25,12 +25,14 @@
                 <a class="mdl-navigation__link" href="home.html" th:href="@{/}">Home</a>
                 <a class="mdl-navigation__link" href="user/login.html" th:href="@{/user/login}">Login</a>
                 <a class="mdl-navigation__link" href="user/register.html" th:href="@{/user/register}">Register</a>
-                <div id="logged-in-info">
-                    <span th:inline="text">[[${#httpServletRequest.remoteUser!=null?#httpServletRequest.remoteUser:"" }]]</span>
+                <a class="mdl-navigation__link" id="logged-in-info">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="Log Out"/>
+                        <span th:inline="text">[[${#httpServletRequest.remoteUser!=null?#httpServletRequest.remoteUser:"" }]]</span>
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect" style="color: white">
+                            Log Out
+                        </button>
                     </form>
-                </div>
+                </a>
             </nav>
         </div>
     </header>
@@ -43,9 +45,8 @@
             <a class="mdl-navigation__link" href="">Link</a>
         </nav>
     </div>
-    <main class="mdl-layout__content">
-        <div class="page-content"><!-- Your content goes here --></div>
-    </main>
+    <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i
+            class="material-icons"></i></div>
 </div>
 
 <footer th:fragment="site-footer">
