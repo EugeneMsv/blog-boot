@@ -9,10 +9,15 @@
 
 <header th:replace="layout :: site-header"/>
 
-<h1>Welcome to Blog</h1>
-Now is: <b th:text="${execInfo.now.time}">date and time</b>
+<div class="blog blog--blogpost mdl-layout mdl-js-layout has-drawer is-upgraded">
+    <main class="mdl-layout__content">
+        <h1 style="color: white">Welcome to Blog</h1>
+        Now is: <b th:text="${execInfo.now.time}">date and time</b>
 
-<footer th:replace="layout :: site-footer"/>
+    </main>
+    <footer th:replace="layout :: site-footer"/>
+</div>
+
 
 </body>
 

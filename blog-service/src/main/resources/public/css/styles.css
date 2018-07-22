@@ -561,11 +561,27 @@ body .blog {
 
 .blog .mdl-mini-footer {
     margin-top: 80px;
-    height: 120px;
+    height: 70px;
     padding: 40px;
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
     background-color: white;
     box-sizing: border-box;
+}
+
+.mdl-layout__header {
+    background-color: white;
+}
+
+.mdl-layout__header .mdl-layout__drawer-button {
+    color: black;
+}
+
+.mdl-layout__header .mdl-layout__header-row .mdl-navigation__link {
+    color: black;
+}
+
+.mdl-layout__header .mdl-layout__header-row {
+    color: black;
 }
