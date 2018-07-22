@@ -15,18 +15,18 @@ import ru.text.nastya.exception.DataNotFoundException;
 
 import java.util.Optional;
 
+import static ru.text.nastya.web.controllers.base.ControllerConstants.DEFAULT_MODEL_PARAMETER;
+import static ru.text.nastya.web.controllers.base.ControllerConstants.PAGE_POSTFIX;
+
 //@Profiling(showArgs = true, timeRecord = true, showOutput = true)
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
-
-    public static final String PAGE_POSTFIX = "Page";
-
 
     protected abstract CrudService<E> getCrudService();
 
     protected abstract EntityMapper<E, D> getEntityMapper();
 
     protected String getModelParameter() {
-        return "FAILED";
+        return DEFAULT_MODEL_PARAMETER;
     }
 
     private E toEntity(D dto) {

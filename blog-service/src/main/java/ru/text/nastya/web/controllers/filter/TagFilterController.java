@@ -1,4 +1,4 @@
-package ru.text.nastya.web.controllers.crud;
+package ru.text.nastya.web.controllers.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +12,13 @@ import ru.text.nastya.dto.mapper.TagMapper;
 import ru.text.nastya.filters.TagFilter;
 import ru.text.nastya.web.controllers.base.AbstractFilterController;
 
+import static ru.text.nastya.web.controllers.filter.TagFilterController.MODEL_PARAMETER;
+
 @RestController
-@RequestMapping("/tag/filter")
+@RequestMapping(MODEL_PARAMETER + "/filter")
 public class TagFilterController extends AbstractFilterController<Tag, TagDto, TagFilter> {
+
+    public static final String MODEL_PARAMETER = "tag";
 
     private final TagFilterService tagFilterService;
 
@@ -34,5 +38,10 @@ public class TagFilterController extends AbstractFilterController<Tag, TagDto, T
     @Override
     protected EntityMapper<Tag, TagDto> getEntityMapper() {
         return tagMapper;
+    }
+
+    @Override
+    protected String getModelParameter() {
+        return MODEL_PARAMETER;
     }
 }
