@@ -53,40 +53,34 @@ public final class BooleanExpressionBuilder {
     }
 
     private class ParameterImpl<T> implements Parameter<T> {
-        private final Optional<T> optional;
+        private Optional<T> optional;
 
         ParameterImpl(Optional<T> optional) {
             this.optional = optional;
         }
 
-        /**
-         * Проверка на прохождение с предикатом
-         *
-         * @param predicate предикат
-         * @return параметр
-         */
+
+        @Override
         public Parameter<T> checkIf(Predicate<T> predicate) {
-            optional.filter(predicate);
+            optional = optional.filter(predicate);
             return this;
         }
 
-        /**
-         * Проверка на НЕ прохождение с предикатом
-         *
-         * @param predicate предикат
-         * @return параметр
-         */
+
+        @Override
         public Parameter<T> checkIfNot(Predicate<T> predicate) {
-            optional.filter(predicate.negate());
+            optional = optional.filter(predicate.negate());
             return this;
         }
 
-        /**
-         * Применение функции поиска к параметру
-         *
-         * @param expressionFunc фугкция поиска
-         * @return выражение
-         */
+
+        @Override
+        public Parameter<T> map(Function<T, T> mapFunction) {
+            optional = optional.map(mapFunction);
+            return this;
+        }
+
+        @Override
         public Expression that(Function<T, BooleanExpression> expressionFunc) {
             return optional.map(t -> BooleanExpressionBuilder.this.new ExpressionImpl(expressionFunc.apply(t)))
                     .orElseGet(() -> BooleanExpressionBuilder.this.new ExpressionImpl(Expressions.TRUE));

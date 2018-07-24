@@ -2,7 +2,6 @@ package ru.text.nastya.domain.services.manager.impl;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseSetups;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,8 @@ import static ru.text.nastya.utils.AssertionUtils.assertReflectionEquals;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.getPostBuilder;
 
-@DatabaseSetups({@DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL),
-        @DatabaseSetup(value = "/preset/set_post.xml", type = DatabaseOperation.INSERT)})
+@DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL)
+@DatabaseSetup(value = "/preset/set_post.xml", type = DatabaseOperation.INSERT)
 public class PostManagerImplIT extends BaseServiceConfiguration {
 
     @Autowired

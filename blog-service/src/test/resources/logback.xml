@@ -1,0 +1,18 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) [%thread] %cyan(%logger{36}) - %highlight(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.text.nastya" level="info"/>
+    <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="error"/>
+    <logger name="org.hibernate.SQL" level="debug"/>
+    <!--For see sql bindings-->
+    <logger name="org.hibernate.type" level="trace"/>
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
