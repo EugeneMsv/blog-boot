@@ -5,16 +5,16 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.text.nastya.BaseServiceIT;
+import ru.text.nastya.BaseServiceConfiguration;
 import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.domain.services.manager.CommentaryManager;
 import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
+import ru.text.nastya.domain.services.manager.CommentaryManager;
 
 import static org.junit.Assert.assertNotNull;
 
 @DatabaseSetups({@DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL),
         @DatabaseSetup(value = "/preset/set_commentary.xml", type = DatabaseOperation.INSERT)})
-public class CommentaryManagerImplIT extends BaseServiceIT {
+public class CommentaryManagerImplIT extends BaseServiceConfiguration {
 
     @Autowired
     private CommentaryManager commentaryManager;

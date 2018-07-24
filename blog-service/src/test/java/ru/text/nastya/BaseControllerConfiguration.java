@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DirtiesContextTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
         TransactionDbUnitTestExecutionListener.class})
-public class BaseControllerIT {
+public class BaseControllerConfiguration {
 
     protected static final Random rand = new Random(System.nanoTime());
 

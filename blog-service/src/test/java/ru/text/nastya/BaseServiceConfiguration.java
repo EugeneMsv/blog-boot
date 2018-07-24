@@ -1,8 +1,6 @@
 package ru.text.nastya;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.bean.DatabaseConfigBean;
 import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 import org.dbunit.ext.h2.H2DataTypeFactory;
@@ -10,9 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,7 +16,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
@@ -30,7 +25,7 @@ import javax.sql.DataSource;
 @SpringBootTest(classes = {BlogApplication.class})
 @TestPropertySource(
         locations = "classpath:test.properties")
-public class BaseServiceIT {
+public class BaseServiceConfiguration {
 
     @TestConfiguration
     public static class DBUnitConfig {

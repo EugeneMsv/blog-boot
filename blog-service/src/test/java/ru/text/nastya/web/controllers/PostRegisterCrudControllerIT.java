@@ -4,25 +4,25 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
-import ru.text.nastya.BaseControllerIT;
+import ru.text.nastya.BaseControllerConfiguration;
 import ru.text.nastya.dto.PostRegisterDto;
 import ru.text.nastya.utils.TestPageImpl;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.*;
 import static ru.text.nastya.utils.AssertionUtils.assertReflectionEquals;
-import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.getPostRegisterBuilder;
 
 
 @DatabaseSetups({
         @DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL),})
-public class PostRegisterCrudControllerIT extends BaseControllerIT {
+@Ignore("need support security")
+public class PostRegisterCrudControllerIT extends BaseControllerConfiguration {
 
 
     private static final String urlPrefix = "/postRegister";

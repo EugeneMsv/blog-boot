@@ -4,6 +4,6 @@
     <post_register id="1" preview="Пустой регистр" likes="5" views="999" comments_num="0"
                    created_time="2016-08-29"/>
 
-    <tag id="0" code="hot" description="Новейшее"/>
-    <tag id="1" code="old" description="Неактуальное"/>
+    <tag id="0" code="hot" name="Новейшее"/>
+    <tag id="1" code="old" name="Неактуальное"/>
 </dataset>

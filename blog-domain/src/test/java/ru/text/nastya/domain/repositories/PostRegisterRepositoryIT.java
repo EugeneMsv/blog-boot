@@ -3,13 +3,11 @@ package ru.text.nastya.domain.repositories;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import ru.text.nastya.BaseRepositoryIT;
-import ru.text.nastya.domain.entities.Post;
+import ru.text.nastya.BaseRepositoryConfiguration;
 import ru.text.nastya.domain.entities.PostRegister;
 
 import java.time.LocalDateTime;
@@ -25,7 +23,7 @@ import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.getPostRegisterBuilder;
 
 @DatabaseSetups({@DatabaseSetup(value = "/preset/clean.xml", type = DatabaseOperation.DELETE_ALL)})
-public class PostRegisterRepositoryIT extends BaseRepositoryIT {
+public class PostRegisterRepositoryIT extends BaseRepositoryConfiguration {
 
     private static final Random rand = new Random(System.nanoTime());
 

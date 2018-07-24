@@ -1,11 +1,8 @@
 package ru.text.nastya.domain.repositories;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.text.nastya.BaseRepositoryIT;
+import ru.text.nastya.BaseRepositoryConfiguration;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,11 +10,9 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class DomainEngineIT extends BaseRepositoryIT {
+public class DomainEngineIT extends BaseRepositoryConfiguration {
 
     @Autowired
     private DataSource dataSource;

@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import ru.text.nastya.BaseServiceIT;
+import ru.text.nastya.BaseServiceConfiguration;
 import ru.text.nastya.domain.entities.Post;
 import ru.text.nastya.domain.entities.PostRegister;
 import ru.text.nastya.domain.entities.PostState;
@@ -30,7 +30,7 @@ import static ru.text.nastya.utils.DomainEntityBuilder.getPostBuilder;
 
 @DatabaseSetups({@DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL),
         @DatabaseSetup(value = "/preset/set_post.xml", type = DatabaseOperation.INSERT)})
-public class PostManagerImplIT extends BaseServiceIT {
+public class PostManagerImplIT extends BaseServiceConfiguration {
 
     @Autowired
     private TagRepository tagRepository;

@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import ru.text.nastya.BaseServiceIT;
+import ru.text.nastya.BaseServiceConfiguration;
 import ru.text.nastya.domain.entities.Tag;
 import ru.text.nastya.domain.services.crud.TagCrudService;
 
@@ -24,7 +24,7 @@ import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomTag;
 
 @DatabaseSetup(value = "/preset/clean-web.xml", type = DatabaseOperation.DELETE_ALL)
-public class TagCrudServiceImplIT extends BaseServiceIT {
+public class TagCrudServiceImplIT extends BaseServiceConfiguration {
 
     @Autowired
     private TagCrudService tagCrudService;
