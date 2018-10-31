@@ -20,7 +20,8 @@ import javax.sql.DataSource;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class})
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {BlogApplication.class})
 @TestPropertySource(

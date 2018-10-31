@@ -38,7 +38,7 @@ public class UserGroupCrudServiceImpl extends AbstractCrudServiceImpl<UserGroup>
         List<UserRole> roles = target.getRoles();
         if (!CollectionUtils.isEmpty(roles)) {
             long linkedRoles = IntStream.range(0, roles.size())
-                    .filter(i -> roles.get(i) != null && roles.get(i).getId() == null)
+                    .filter(i -> roles.get(i) != null && roles.get(i).getUuid() == null)
                     .peek(i -> {
                         String code = roles.get(i).getCode();
                         UserRole userRole = userRoleRepository.findByCodeIgnoreCase(code)

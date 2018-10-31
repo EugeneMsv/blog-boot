@@ -68,6 +68,6 @@ public class RememberMeTokenManager implements PersistentTokenRepository {
     @Override
     public void removeUserTokens(String username) {
         rememberMeTokenRepository.findByUsername(username)
-                .ifPresent(savedToken -> rememberMeTokenRepository.delete(savedToken.getId()));
+                .ifPresent(savedToken -> rememberMeTokenRepository.delete(savedToken.getUuid()));
     }
 }

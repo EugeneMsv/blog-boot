@@ -19,7 +19,7 @@ public abstract class AbstractCollectionIdentityMapper<E extends Identity, D ext
 
     @Override
     protected boolean isEquals(E entity, D dto) {
-        return dto.getUuid().equals(entity.getId());
+        return dto.getUuid().equals(entity.getUuid());
     }
 
 }

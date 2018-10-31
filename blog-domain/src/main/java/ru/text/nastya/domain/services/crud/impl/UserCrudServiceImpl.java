@@ -47,7 +47,7 @@ public class UserCrudServiceImpl extends AbstractCrudServiceImpl<User> implement
         List<UserGroup> groups = target.getGroups();
         if (!CollectionUtils.isEmpty(groups)) {
             long linkedGroups = IntStream.range(0, groups.size())
-                    .filter(i -> groups.get(i) != null && groups.get(i).getId() == null)
+                    .filter(i -> groups.get(i) != null && groups.get(i).getUuid() == null)
                     .peek(i -> {
                         String code = groups.get(i).getCode();
                         UserGroup userGroup = userGroupRepository.findByCodeIgnoreCase(code)

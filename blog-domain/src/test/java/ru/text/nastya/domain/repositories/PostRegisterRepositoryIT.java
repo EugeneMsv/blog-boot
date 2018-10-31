@@ -54,7 +54,7 @@ public class PostRegisterRepositoryIT extends BaseRepositoryConfiguration {
         PostRegister randPostRegister = buildRandomPostRegister();
         PostRegister saved = postRegisterRepository.save(randPostRegister);
         assertFieldsEquals(randPostRegister, saved);
-        Optional<PostRegister> optPostRegister = postRegisterRepository.findOne(saved.getId());
+        Optional<PostRegister> optPostRegister = postRegisterRepository.findOne(saved.getUuid());
         PostRegister found = optPostRegister.get();
         assertFieldsEquals(saved, found);
     }
@@ -69,7 +69,7 @@ public class PostRegisterRepositoryIT extends BaseRepositoryConfiguration {
 
         assertTrue(postRegisterRepository.exists());
         //delete
-        postRegisterRepository.delete(saved.getId());
+        postRegisterRepository.delete(saved.getUuid());
         assertFalse(postRegisterRepository.exists());
     }
 

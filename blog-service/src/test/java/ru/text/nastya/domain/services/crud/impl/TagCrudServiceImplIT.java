@@ -11,6 +11,7 @@ import ru.text.nastya.BaseServiceConfiguration;
 import ru.text.nastya.domain.entities.Tag;
 import ru.text.nastya.domain.services.crud.TagCrudService;
 
+import javax.validation.ConstraintViolationException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class TagCrudServiceImplIT extends BaseServiceConfiguration {
         assertPersist(saved);
         assertFieldsEquals(randTag, saved);
         //find
-        Optional<Tag> optTag = tagCrudService.findOne(saved.getId());
+        Optional<Tag> optTag = tagCrudService.findOne(saved.getUuid());
         Tag found = optTag.get();
         assertNotNull(found);
         assertPersist(found);
@@ -66,7 +67,7 @@ public class TagCrudServiceImplIT extends BaseServiceConfiguration {
         Tag randTag = buildRandomTag();
         Tag saved = tagCrudService.save(randTag);
         assertFieldsEquals(randTag, saved);
-        Optional<Tag> optTag = tagCrudService.findOne(saved.getId());
+        Optional<Tag> optTag = tagCrudService.findOne(saved.getUuid());
         Tag found = optTag.get();
         assertFieldsEquals(saved, found);
     }
@@ -81,8 +82,13 @@ public class TagCrudServiceImplIT extends BaseServiceConfiguration {
 
         assertTrue(tagCrudService.exists());
         //delete
-        tagCrudService.delete(saved.getId());
+        tagCrudService.delete(saved.getUuid());
         assertFalse(tagCrudService.exists());
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void test_delete_WithNullUuid() {
+        tagCrudService.delete(null);
     }
 
 

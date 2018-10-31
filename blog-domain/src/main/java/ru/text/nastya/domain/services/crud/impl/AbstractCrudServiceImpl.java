@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.repositories.PersistedEntityRepository;
 import ru.text.nastya.util.ValidationMessages;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 // TODO: 24.07.2017 тестировать
+@Validated
 public abstract class AbstractCrudServiceImpl<E extends Identity> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -24,12 +26,12 @@ public abstract class AbstractCrudServiceImpl<E extends Identity> {
     @Transactional
     public E save(@NotNull E target) {
         Validate.notNull(target, ValidationMessages.NOT_NULL, "saving " + target.getClass());
-        logger.info("Save entity with uuid={}", target.getId());
+        logger.info("Save entity with uuid={}", target.getUuid());
         if (logger.isTraceEnabled()) {
             logger.trace("Full entity for save {}", target);
         }
         E saved = getRepository().save(preSaveAction(target));
-        logger.info("Saved entity with uuid={}", saved.getId());
+        logger.info("Saved entity with uuid={}", saved.getUuid());
         return saved;
     }
 
@@ -44,7 +46,6 @@ public abstract class AbstractCrudServiceImpl<E extends Identity> {
 
     @Transactional
     public void delete(@NotEmpty String uuid) {
-        Validate.notNull(uuid, ValidationMessages.NOT_NULL, "id");
         logger.info("Save entity with uuid={}", uuid);
         getRepository().delete(uuid);
         logger.info("Deleted entity with uuid={}", uuid);

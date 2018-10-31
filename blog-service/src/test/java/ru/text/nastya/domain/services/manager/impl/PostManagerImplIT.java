@@ -74,7 +74,7 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
     @Test
     public void test_addPost() {
         Post randomPost = buildRandomPost();
-        Post addedPost = postManager.addPost(postRegister.getId(), randomPost);
+        Post addedPost = postManager.addPost(postRegister.getUuid(), randomPost);
         assertPostEquals(randomPost, addedPost);
     }
 
@@ -82,30 +82,30 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
     @Test
     public void test_removePost() {
         Post randomPost = buildRandomPost();
-        Post addedPost = postManager.addPost(postRegister.getId(), randomPost);
+        Post addedPost = postManager.addPost(postRegister.getUuid(), randomPost);
         assertPostEquals(randomPost, addedPost);
 
-        Post beforeRemove = postManager.getPost(postRegister.getId()).get();
+        Post beforeRemove = postManager.getPost(postRegister.getUuid()).get();
         assertNotNull(beforeRemove);
 
-        postManager.removePost(postRegister.getId());
+        postManager.removePost(postRegister.getUuid());
 
-        assertFalse(postManager.getPost(postRegister.getId()).isPresent());
+        assertFalse(postManager.getPost(postRegister.getUuid()).isPresent());
     }
 
     @Test
     public void test_getPost() {
         Post randomPost = buildRandomPost();
-        postManager.addPost(postRegister.getId(), randomPost);
+        postManager.addPost(postRegister.getUuid(), randomPost);
 
-        Post post = postManager.getPost(postRegister.getId()).get();
+        Post post = postManager.getPost(postRegister.getUuid()).get();
         assertNotNull(post);
         assertPostEquals(randomPost, post);
     }
 
     @Test
     public void test_getPost_Null() {
-        assertFalse(postManager.getPost(postRegister.getId()).isPresent());
+        assertFalse(postManager.getPost(postRegister.getUuid()).isPresent());
     }
 
 }
