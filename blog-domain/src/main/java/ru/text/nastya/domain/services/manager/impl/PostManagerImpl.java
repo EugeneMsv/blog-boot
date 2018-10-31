@@ -1,11 +1,11 @@
 package ru.text.nastya.domain.services.manager.impl;
 
 import org.apache.commons.lang3.Validate;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.text.nastya.domain.entities.Post;
-import ru.text.nastya.domain.entities.PostRegister;
 import ru.text.nastya.domain.repositories.PostRegisterRepository;
 import ru.text.nastya.domain.repositories.PostRepository;
 import ru.text.nastya.domain.services.manager.PostManager;
@@ -29,35 +29,33 @@ public class PostManagerImpl implements PostManager {
 
     @Transactional
     @Override
-    public Post addPost(Long postRegisterId, Post post) {
-        Validate.notNull(postRegisterId, "Post register id must be set");
+    public Post addPost(@NotEmpty String postRegisterUuid, Post post) {
+        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
         Validate.notNull(post, "Post object must be set");
 
-        Optional<PostRegister> registerOpt = postRegisterRepository.findOne(postRegisterId);
-
-        return registerOpt.map(register -> {
-            post.setPostRegister(register);
-            return postRepository.save(post);
-        }).orElseThrow(() -> new DataNotFoundException("Not found post register with id = " + postRegisterId));
+        return postRegisterRepository.findOne(postRegisterUuid)
+                .map(register -> {
+                    post.setPostRegister(register);
+                    return postRepository.save(post);
+                }).orElseThrow(() -> new DataNotFoundException("Not found post register with uuid = " + postRegisterUuid));
     }
 
     @Transactional
     @Override
-    public void removePost(Long postRegisterId) {
-        Validate.notNull(postRegisterId, "Post register id must be set");
-        Optional<Post> postOpt = postRepository.findByPostRegisterId(postRegisterId);
+    public void removePost(String postRegisterUuid) {
+        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
+        Optional<Post> postOpt = postRepository.findByPostRegisterUuid(postRegisterUuid);
         if (postOpt.isPresent()) {
-            postRepository.delete(postOpt.get().getId());
+            postRepository.delete(postOpt.get().getUuid());
         } else {
-            throw new DataNotFoundException("Not found post for register with id = " + postRegisterId);
+            throw new DataNotFoundException("Not found post for register with uuid = " + postRegisterUuid);
         }
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
-    public Post getPost(Long postRegisterId) {
-        Validate.notNull(postRegisterId, "Post register id must be set");
-        Optional<Post> postOpt = postRepository.findByPostRegisterId(postRegisterId);
-        return postOpt.orElse(null);
+    public Optional<Post> getPost(String postRegisterUuid) {
+        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
+        return postRepository.findByPostRegisterUuid(postRegisterUuid);
     }
 }

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static ru.text.nastya.utils.AssertionUtils.assertListEqualsInAnyOrder;
 import static ru.text.nastya.utils.AssertionUtils.assertReflectionEquals;
 import static ru.text.nastya.utils.DomainEntityBuilder.buildRandomString;
@@ -46,7 +46,7 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
 
     @Before
     public void setUp() {
-        postRegister = postRegisterRepository.findOne(0L).get();
+        postRegister = postRegisterRepository.findOne("0").get();
 
         tags.clear();
         Iterable<Tag> tagIterable = tagRepository.findAll(new PageRequest(0, Integer.MAX_VALUE));
@@ -85,13 +85,12 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
         Post addedPost = postManager.addPost(postRegister.getId(), randomPost);
         assertPostEquals(randomPost, addedPost);
 
-        Post beforeRemove = postManager.getPost(postRegister.getId());
+        Post beforeRemove = postManager.getPost(postRegister.getId()).get();
         assertNotNull(beforeRemove);
 
         postManager.removePost(postRegister.getId());
 
-        Post afterRemove = postManager.getPost(postRegister.getId());
-        assertNull(afterRemove);
+        assertFalse(postManager.getPost(postRegister.getId()).isPresent());
     }
 
     @Test
@@ -99,16 +98,14 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
         Post randomPost = buildRandomPost();
         postManager.addPost(postRegister.getId(), randomPost);
 
-        Post post = postManager.getPost(postRegister.getId());
+        Post post = postManager.getPost(postRegister.getId()).get();
         assertNotNull(post);
         assertPostEquals(randomPost, post);
     }
 
     @Test
     public void test_getPost_Null() {
-        Post post = postManager.getPost(postRegister.getId());
-        assertNull(post);
+        assertFalse(postManager.getPost(postRegister.getId()).isPresent());
     }
-
 
 }

@@ -11,9 +11,10 @@ import ru.text.nastya.dto.PostDto;
 import ru.text.nastya.dto.mapper.PostMapper;
 import ru.text.nastya.dto.validation.groups.Create;
 import ru.text.nastya.dto.validation.groups.Update;
+import ru.text.nastya.exception.DataNotFoundException;
 
 @RestController
-@RequestMapping("postRegister/{registerId}/post")
+@RequestMapping("postRegister/{registerUuid}/post")
 public class PostManageController {
 
     private final PostRegisterCrudService postRegisterCrudService;
@@ -40,39 +41,39 @@ public class PostManageController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto addPost(@PathVariable Long registerId, @Validated(Create.class) PostDto postDto) {
-        Validate.notNull(registerId, "Can't add with null register id");
+    public PostDto addPost(@PathVariable String registerUuid, @Validated(Create.class) PostDto postDto) {
+        Validate.notNull(registerUuid, "Can't add with null register uuid");
         Validate.notNull(postDto, "Can't add with null postDto");
-        Post post = postRegisterCrudService.addPost(registerId, toEntity(postDto));
+        Post post = postRegisterCrudService.addPost(registerUuid, toEntity(postDto));
         return toDto(post);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto updatePost(@PathVariable Long registerId, @Validated(Update.class) PostDto postDto) {
-        Validate.notNull(registerId, "Can't update with null register id");
+    public PostDto updatePost(@PathVariable String registerUuid, @Validated(Update.class) PostDto postDto) {
+        Validate.notNull(registerUuid, "Can't update with null register uuid");
         Validate.notNull(postDto, "Can't update with null postDto");
-        Post alreadySavedPost = postRegisterCrudService.getPost(registerId);
-        if (alreadySavedPost == null) {
-            return addPost(registerId, postDto);
-        } else {
-            Post updatedPost = postRegisterCrudService.addPost(registerId, updateWithDto(postDto, alreadySavedPost));
-            return toDto(updatedPost);
-        }
+        return postRegisterCrudService.getPost(registerUuid)
+                .map(found -> {
+                    Post updatedPost = postRegisterCrudService.addPost(registerUuid, updateWithDto(postDto, found));
+                    return toDto(updatedPost);
+                })
+                .orElseGet(() -> addPost(registerUuid, postDto));
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removePost(@PathVariable Long registerId) {
-        Validate.notNull(registerId, "Can't remove with null register id");
-        postRegisterCrudService.removePost(registerId);
+    public void removePost(@PathVariable String registerUuid) {
+        Validate.notNull(registerUuid, "Can't remove with null register uuid");
+        postRegisterCrudService.removePost(registerUuid);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public PostDto getPost(@PathVariable Long registerId) {
-        Validate.notNull(registerId, "Can't get with null register id");
-        Post post = postRegisterCrudService.getPost(registerId);
-        return toDto(post);
+    public PostDto getPost(@PathVariable String registerUuid) {
+        Validate.notNull(registerUuid, "Can't get with null register uuid");
+        return postRegisterCrudService.getPost(registerUuid)
+                .map(this::toDto)
+                .orElseThrow(DataNotFoundException::new);
     }
 }

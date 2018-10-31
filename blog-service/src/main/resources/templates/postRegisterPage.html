@@ -12,9 +12,9 @@
             <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col"
                  th:each="postRegister : ${postRegisterPage.getContent()}">
                 <div class="mdl-card__media mdl-color-text--grey-50" th:object="${postRegister}"
-                     th:style="'background-image: url(/img/'+*{id}%3+'.jpg); height: 280px;'">
+                     th:style="'background-image: url(/img/1.jpg); height: 280px;'">
 
-                    <h3><a th:href="@{'postRegister/' + *{id} +'/post'}" href="entry.html"
+                    <h3><a th:href="@{'postRegister/' + *{uuid} +'/post'}" href="entry.html"
                            th:text="*{preview}">Title
                         preview</a></h3>
                 </div>

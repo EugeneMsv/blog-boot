@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "post")
 public class Post extends Identity {
 
-    private static final long serialVersionUID = -8786471757326098213L;
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "code", unique = true, length = 100)
     private String code;
@@ -105,15 +105,7 @@ public class Post extends Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        return o != null && o instanceof Post && getId().equals(((Identity) o).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Post;
     }
 }

@@ -5,19 +5,20 @@ import org.springframework.data.domain.Pageable;
 import ru.text.nastya.domain.entities.Commentary;
 import ru.text.nastya.domain.entities.Post;
 import ru.text.nastya.domain.entities.PostRegister;
-import ru.text.nastya.domain.services.crud.CrudService;
+
+import java.util.Optional;
 
 public interface PostRegisterCrudService extends CrudService<PostRegister> {
 
-    Commentary addCommentary(Long postRegisterId, Commentary commentary);
+    Commentary addCommentary(String postRegisterId, Commentary commentary);
 
-    void removeCommentary(Long postRegisterId, Long commentaryId);
+    void removeCommentary(String postRegisterId, String commentaryId);
 
-    Page<Commentary> findAllCommentaries(Long postRegisterId, Pageable pageable);
+    Page<Commentary> findAllCommentaries(String postRegisterUuid, Pageable pageable);
 
-    Post addPost(Long postRegisterId, Post post);
+    Post addPost(String postRegisterUuid, Post post);
 
-    void removePost(Long postRegisterId);
+    void removePost(String postRegisterUuid);
 
-    Post getPost(Long postRegisterId);
+    Optional<Post> getPost(String postRegisterUuid);
 }

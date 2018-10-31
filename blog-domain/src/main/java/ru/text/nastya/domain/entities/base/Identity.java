@@ -1,30 +1,50 @@
 package ru.text.nastya.domain.entities.base;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Identity implements Persistable<Long> {
+public abstract class Identity implements Persistable<String> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    @GenericGenerator(name = "generator", strategy = "uuid2")
+    @GeneratedValue(generator = "generator")
+    @Column(name = "uuid", unique = true, nullable = false, updatable = false)
+    protected String uuid;
+
+    @Version
+    protected Long version;
 
     @Transient
     @Override
     public boolean isNew() {
-        return this.id == null;
+        return this.uuid == null && version == null;
     }
-
 
     @Override
-    public Long getId() {
-        return this.id;
+    public String getId() {
+        return getUuid();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override
@@ -32,35 +52,20 @@ public abstract class Identity implements Persistable<Long> {
         if (this == o) {
             return true;
         }
-        return o != null && o instanceof Identity && id.equals(((Identity) o).id);
+        return proxyCheck(o) && uuid.equals(((Identity) o).uuid);
+    }
+
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Identity;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Objects.hash(uuid);
     }
 
     @Override
     public String toString() {
-       /* try {
-            // TODO: 26.07.2017 Временно, затем убрать рефлексию
-            StringBuilder sb = new StringBuilder(getClass().getSimpleName());
-            sb.append("{id=").append(id).append(",");
-            for (Method method : getClass().getMethods()) {
-                if (method.getName().startsWith("get")) {
-                    sb.append(StringUtils.uncapitalize(method.getName().split("get")[1]))
-                            .append("=")
-                            .append(method.invoke(this))
-                            .append(",");
-                }
-            }
-            return sb.append("}").toString();
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("Failed to print " + getClass());
-        }
-*/
-        StringBuilder sb = new StringBuilder("[");
-        return sb.append(getClass().getSimpleName()).append("{id=").append(id).append("}]").toString();
-
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

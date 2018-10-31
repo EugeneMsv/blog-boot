@@ -3,10 +3,11 @@ package ru.text.nastya.domain.entities;
 
 import ru.text.nastya.domain.entities.base.Identity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-
-import static javax.persistence.CascadeType.*;
 
 /**
  * Основная сущность
@@ -15,7 +16,7 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "post_register")
 public class PostRegister extends Identity {
 
-    private static final long serialVersionUID = -1207026720655304124L;
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "preview")
     private String preview;
@@ -86,15 +87,7 @@ public class PostRegister extends Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        return o != null && o instanceof PostRegister && getId().equals(((Identity) o).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
+    protected boolean proxyCheck(Object o) {
+        return o instanceof PostRegister;
     }
 }

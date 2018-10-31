@@ -1,8 +1,8 @@
 package ru.text.nastya.domain.services.crud;
 
-import ru.text.nastya.domain.entities.base.Identity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ru.text.nastya.domain.entities.base.Identity;
 
 import java.util.Optional;
 
@@ -29,12 +29,12 @@ public interface CrudService<E extends Identity> {
     boolean exists();
 
     /**
-     * Delete entity  by id
+     * Delete entity  by uuid
      *
-     * @param id entity id
+     * @param uuid entity uuid
      * @throws IllegalArgumentException in case the given entity is {@literal null}
      */
-    void delete(Long id);
+    void delete(String uuid);
 
     /**
      * Delete all entities
@@ -42,12 +42,12 @@ public interface CrudService<E extends Identity> {
     void deleteAll();
 
     /**
-     * Find entity by id
+     * Find entity by uuid
      *
-     * @param id entity id
+     * @param uuid entity uuid
      * @return optional of entity, empty if there is no such entity
      */
-    Optional<E> findOne(Long id);
+    Optional<E> findOne(String uuid);
 
     /**
      * Find all entities with given page

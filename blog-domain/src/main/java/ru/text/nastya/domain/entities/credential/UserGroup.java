@@ -44,7 +44,7 @@ public class UserGroup extends Dictionary {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o instanceof UserGroup && super.equals(o);
+    protected boolean proxyCheck(Object o) {
+        return o instanceof UserGroup;
     }
 }

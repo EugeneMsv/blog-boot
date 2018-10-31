@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface CommentaryRepository extends PersistedEntityRepository<Commentary> {
 
-    Optional<Commentary> findByPostRegisterIdAndId(Long postRegisterId, Long id);
+    Optional<Commentary> findByPostRegisterUuidAndUuid(String postRegisterUuid, Long uuid);
 }

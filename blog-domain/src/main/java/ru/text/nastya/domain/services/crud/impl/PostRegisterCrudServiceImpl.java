@@ -13,6 +13,8 @@ import ru.text.nastya.domain.services.crud.PostRegisterCrudService;
 import ru.text.nastya.domain.services.manager.CommentaryManager;
 import ru.text.nastya.domain.services.manager.PostManager;
 
+import java.util.Optional;
+
 @Service
 public class PostRegisterCrudServiceImpl extends AbstractCrudServiceImpl<PostRegister>
         implements PostRegisterCrudService {
@@ -39,32 +41,32 @@ public class PostRegisterCrudServiceImpl extends AbstractCrudServiceImpl<PostReg
 
 
     @Override
-    public Commentary addCommentary(Long postRegisterId, Commentary commentary) {
-        return commentaryManager.addToPostRegister(postRegisterId, commentary);
+    public Commentary addCommentary(String postRegisterUuid, Commentary commentary) {
+        return commentaryManager.addToPostRegister(postRegisterUuid, commentary);
     }
 
     @Override
-    public void removeCommentary(Long postRegisterId, Long commentaryId) {
-        commentaryManager.removeFromPostRegister(postRegisterId, commentaryId);
+    public void removeCommentary(String postRegisterUuid, String commentaryId) {
+        commentaryManager.removeFromPostRegister(postRegisterUuid, commentaryId);
     }
 
     @Override
-    public Page<Commentary> findAllCommentaries(Long postRegisterId, Pageable pageable) {
-        return commentaryManager.findAllFromPostRegister(postRegisterId, pageable);
+    public Page<Commentary> findAllCommentaries(String postRegisterUuid, Pageable pageable) {
+        return commentaryManager.findAllFromPostRegister(postRegisterUuid, pageable);
     }
 
     @Override
-    public Post addPost(Long postRegisterId, Post post) {
-        return postManager.addPost(postRegisterId, post);
+    public Post addPost(String postRegisterUuid, Post post) {
+        return postManager.addPost(postRegisterUuid, post);
     }
 
     @Override
-    public void removePost(Long postRegisterId) {
-        postManager.removePost(postRegisterId);
+    public void removePost(String postRegisterUuid) {
+        postManager.removePost(postRegisterUuid);
     }
 
     @Override
-    public Post getPost(Long postRegisterId) {
-        return postManager.getPost(postRegisterId);
+    public Optional<Post> getPost(String postRegisterUuid) {
+        return postManager.getPost(postRegisterUuid);
     }
 }

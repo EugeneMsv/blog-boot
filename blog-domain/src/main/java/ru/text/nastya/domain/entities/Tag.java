@@ -8,8 +8,8 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tag", indexes =
-        {@Index(name = "tag_code_idx", columnList = "code", unique = true)})
+@Table(name = "tag", indexes = {
+        @Index(name = "tag_code_idx", columnList = "code", unique = true)})
 public class Tag extends Dictionary {
 
     private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class Tag extends Dictionary {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o instanceof Tag && super.equals(o);
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Tag;
     }
 }

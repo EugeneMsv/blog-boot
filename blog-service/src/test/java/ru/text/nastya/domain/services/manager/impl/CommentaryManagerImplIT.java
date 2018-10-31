@@ -35,7 +35,7 @@ public class CommentaryManagerImplIT extends BaseServiceConfiguration {
         assertPersist(found);
 
         POST_REGISTER = new PostRegister();
-        POST_REGISTER.setId(found.getId());
+        POST_REGISTER.setUuid(found.getUuid());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CommentaryManagerImplIT extends BaseServiceConfiguration {
         Commentary saved = commentaryManager.save(randCommentary);
         assertPersist(saved);
         assertFieldsEquals(randCommentary, saved);
-        Optional<Commentary> optCommentary = commentaryManager.findOne(saved.getId());
+        Optional<Commentary> optCommentary = commentaryManager.findOne(saved.getUuid());
         Commentary found = optCommentary.get();
         assertFieldsEquals(saved, found);
     }
@@ -76,7 +76,7 @@ public class CommentaryManagerImplIT extends BaseServiceConfiguration {
 
         assertTrue(commentaryManager.exists());
         //delete
-        commentaryManager.delete(saved.getId());
+        commentaryManager.delete(saved.getUuid());
         assertFalse(commentaryManager.exists());
     }
 

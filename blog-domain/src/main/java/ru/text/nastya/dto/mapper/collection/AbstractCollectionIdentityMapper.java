@@ -14,12 +14,12 @@ public abstract class AbstractCollectionIdentityMapper<E extends Identity, D ext
 
     @Override
     protected boolean isNewDto(D dto) {
-        return dto.getId() == null;
+        return dto.getUuid() == null;
     }
 
     @Override
     protected boolean isEquals(E entity, D dto) {
-        return dto.getId().equals(entity.getId());
+        return dto.getUuid().equals(entity.getId());
     }
 
 }

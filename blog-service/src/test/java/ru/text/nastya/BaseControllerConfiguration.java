@@ -85,9 +85,9 @@ public class BaseControllerConfiguration {
         }
     }
 
-    protected <D extends IdentityDto> D doGetRequest(String url, Long id, Class<D> dtoClass) {
+    protected <D extends IdentityDto> D doGetRequest(String url, String uuid, Class<D> dtoClass) {
         try {
-            MvcResult mvcGetResult = mvc.perform(get(url + "/{id}", id)
+            MvcResult mvcGetResult = mvc.perform(get(url + "/{uuid}", uuid)
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                     .andExpect(status().isOk())
                     .andReturn();
@@ -115,9 +115,9 @@ public class BaseControllerConfiguration {
         }
     }
 
-    protected void doDeleteRequest(String url, Long id) {
+    protected void doDeleteRequest(String url, String uuid) {
         try {
-            mvc.perform(delete(url + "/{id}", id)
+            mvc.perform(delete(url + "/{uuid}", uuid)
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                     .andExpect(status().isNoContent()).andReturn();
         } catch (Exception e) {
@@ -125,10 +125,10 @@ public class BaseControllerConfiguration {
         }
     }
 
-    protected <D extends IdentityDto> D doUpdateRequest(String url, Long id, D instance, Class<D> dtoClass) {
+    protected <D extends IdentityDto> D doUpdateRequest(String url, String uuid, D instance, Class<D> dtoClass) {
         try {
             String updateJson = jsonMapper.writeValueAsString(instance);
-            MvcResult mvcUpdateResult = mvc.perform(put(url + "/{id}", id)
+            MvcResult mvcUpdateResult = mvc.perform(put(url + "/{uuid}", uuid)
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                     .content(updateJson))
                     .andExpect(status().isOk())

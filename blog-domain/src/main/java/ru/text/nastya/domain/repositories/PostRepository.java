@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface PostRepository extends PersistedEntityRepository<Post> {
 
-    Optional<Post> findByPostRegisterId(Long id);
+    Optional<Post> findByPostRegisterUuid(String uuid);
 
 }

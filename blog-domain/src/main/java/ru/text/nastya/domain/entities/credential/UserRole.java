@@ -25,7 +25,7 @@ public class UserRole extends Dictionary {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o instanceof UserRole && super.equals(o);
+    protected boolean proxyCheck(Object o) {
+        return o instanceof UserRole;
     }
 }

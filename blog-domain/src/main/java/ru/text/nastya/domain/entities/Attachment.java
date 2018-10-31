@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "attachment")
 public class Attachment extends Identity {
 
-    private static final long serialVersionUID = -8412370153231420105L;
+    private static final long serialVersionUID = 1L;
 
     @Lob
     @Column(name = "file", length = 500000)
@@ -60,15 +60,7 @@ public class Attachment extends Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        return o != null && o instanceof Attachment && getId().equals(((Identity) o).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Attachment;
     }
 }

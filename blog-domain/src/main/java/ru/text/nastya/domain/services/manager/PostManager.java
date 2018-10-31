@@ -2,11 +2,13 @@ package ru.text.nastya.domain.services.manager;
 
 import ru.text.nastya.domain.entities.Post;
 
+import java.util.Optional;
+
 public interface PostManager {
 
-    Post addPost(Long postRegisterId, Post post);
+    Post addPost(String postRegisterUuid, Post post);
 
-    void removePost(Long postRegisterId);
+    void removePost(String postRegisterUuid);
 
-    Post getPost(Long postRegisterId);
+    Optional<Post> getPost(String postRegisterUuid);
 }

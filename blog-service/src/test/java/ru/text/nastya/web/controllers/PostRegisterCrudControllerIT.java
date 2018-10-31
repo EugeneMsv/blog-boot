@@ -63,7 +63,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerConfiguration {
         PostRegisterDto saveResponse = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
         assertReflectionEquals(postRegisterDto, saveResponse, "id");
 
-        PostRegisterDto getResultDto = doGetRequest(urlPrefix, saveResponse.getId(), PostRegisterDto.class);
+        PostRegisterDto getResultDto = doGetRequest(urlPrefix, saveResponse.getUuid(), PostRegisterDto.class);
 
         assertReflectionEquals(saveResponse, getResultDto);
     }
@@ -74,7 +74,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerConfiguration {
         PostRegisterDto saveResponse = doSaveRequest(urlPrefix, postRegisterDto, PostRegisterDto.class);
         assertReflectionEquals(postRegisterDto, saveResponse, "id");
 
-        doDeleteRequest(urlPrefix, saveResponse.getId());
+        doDeleteRequest(urlPrefix, saveResponse.getUuid());
 
         Page<PostRegisterDto> page = doFindAllRequest(urlPrefix, new TypeReference<TestPageImpl<PostRegisterDto>>() {
         });
@@ -99,7 +99,7 @@ public class PostRegisterCrudControllerIT extends BaseControllerConfiguration {
         assertNull(dtoForUpdate.getMetaInfo());
         assertNull(dtoForUpdate.getPreview());
 
-        PostRegisterDto updatedPostRegister = doUpdateRequest(urlPrefix, beforeUpdate.getId(), dtoForUpdate,
+        PostRegisterDto updatedPostRegister = doUpdateRequest(urlPrefix, beforeUpdate.getUuid(), dtoForUpdate,
                 PostRegisterDto.class);
 
         assertEquals(dtoForUpdate.getLikes(), updatedPostRegister.getLikes());

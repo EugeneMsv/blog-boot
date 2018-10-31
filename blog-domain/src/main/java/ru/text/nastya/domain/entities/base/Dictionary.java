@@ -44,23 +44,18 @@ public abstract class Dictionary extends Identity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Dictionary)) return false;
         if (!super.equals(o)) return false;
         Dictionary that = (Dictionary) o;
         return Objects.equals(code, that.code);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), code);
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Dictionary;
     }
 
     @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{code='");
-        sb.append(code).append('\'');
-        sb.append(", id=").append(id);
-        sb.append('}');
-        return sb.toString();
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), code);
     }
 }

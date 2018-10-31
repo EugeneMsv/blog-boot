@@ -1,15 +1,15 @@
 package ru.text.nastya.domain.services.manager;
 
-import ru.text.nastya.domain.entities.Commentary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ru.text.nastya.domain.entities.Commentary;
 
 public interface CommentaryManager {
 
-    Commentary addToPostRegister(Long postRegisterId, Commentary commentary);
+    Commentary addToPostRegister(String postRegisterUuid, Commentary commentary);
 
-    void removeFromPostRegister(Long postRegisterId, Long commentaryId);
+    void removeFromPostRegister(String postRegisterUuid, String commentaryUuid);
 
-    Page<Commentary> findAllFromPostRegister(Long postRegisterId, Pageable pageable);
+    Page<Commentary> findAllFromPostRegister(String postRegisterUuid, Pageable pageable);
 
 }

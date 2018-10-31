@@ -17,8 +17,7 @@ public final class PostRegisterFilterConverter implements Converter<PostRegister
 
     public static Predicate buildPredicate(PostRegisterFilter filter) {
         return BooleanExpressionBuilder.create(POST_REGISTER.isNotNull())
-                .and()
-                .value(filter.getPreview()).checkIfNot(String::isEmpty).map(s -> "%" + s + "%").that(POST_REGISTER.preview::likeIgnoreCase)
+                .and().value(filter.getPreview()).checkIfNot(String::isEmpty).map(s -> "%" + s + "%").that(POST_REGISTER.preview::likeIgnoreCase)
                 .build();
     }
 

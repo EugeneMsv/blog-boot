@@ -52,17 +52,17 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     }
 
 
-    @PutMapping(value = {"{id}"},
+    @PutMapping(value = {"{uuid}"},
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public D update(@PathVariable Long id, @RequestBody D request) {
+    public D update(@PathVariable String uuid, @RequestBody D request) {
         checkDtoForUpdate(request);
-        request.setId(id);
+        request.setUuid(uuid);
         E entity;
-        if (id == null) {
+        if (uuid == null) {
             entity = getCrudService().save(toEntity(request));
         } else {
-            Optional<E> founded = getCrudService().findOne(id);
+            Optional<E> founded = getCrudService().findOne(uuid);
             if (founded.isPresent()) {
                 E originEntity = updateEntityByDto(founded.get(), request);
                 entity = getCrudService().save(entityPreUpdateAction(originEntity));
@@ -74,17 +74,17 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     }
 
 
-    @DeleteMapping(value = {"{id}"})
+    @DeleteMapping(value = {"{uuid}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remove(@PathVariable Long id) {
-        getCrudService().delete(id);
+    public void remove(@PathVariable String uuid) {
+        getCrudService().delete(uuid);
     }
 
 
-    @GetMapping(value = {"{id}"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = {"{uuid}"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String get(@PathVariable Long id, Model model) {
-        Optional<E> founded = getCrudService().findOne(id);
+    public String get(@PathVariable String uuid, Model model) {
+        Optional<E> founded = getCrudService().findOne(uuid);
         model.addAttribute(getModelParameter(), founded.map(this::toDto)
                 .orElseThrow(DataNotFoundException::new));
         return getModelParameter();

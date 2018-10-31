@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "commentary")
 public class Commentary extends Identity {
 
-    private static final long serialVersionUID = -2612882182166770506L;
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "author", nullable = false)
     private String author;
@@ -80,15 +80,7 @@ public class Commentary extends Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        return o != null && o instanceof Commentary && getId().equals(((Identity) o).getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getId().hashCode();
+    protected boolean proxyCheck(Object o) {
+        return o instanceof Commentary;
     }
 }

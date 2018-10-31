@@ -8,9 +8,9 @@
 
     <logger name="ru.text.nastya" level="info"/>
     <logger name="org.springframework.context.annotation.ConfigurationClassPostProcessor" level="error"/>
-    <logger name="org.hibernate.SQL" level="debug"/>
+    <!--<logger name="org.hibernate.SQL" level="debug"/>-->
     <!--For see sql bindings-->
-    <logger name="org.hibernate.type" level="trace"/>
+    <!--<logger name="org.hibernate.type" level="trace"/>-->
 
     <root level="WARN">
         <appender-ref ref="STDOUT"/>

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface PersistedEntityRepository<T extends Identity>
-        extends Repository<T, Long>, QueryDslPredicateExecutor<T> {
+        extends Repository<T, String>, QueryDslPredicateExecutor<T> {
 
     /**
      * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
@@ -50,12 +50,12 @@ public interface PersistedEntityRepository<T extends Identity>
     <S extends T> Iterable<S> save(Iterable<S> entities);
 
     /**
-     * Deletes the entity with the given id.
+     * Deletes the entity with the given uuid.
      *
-     * @param id must not be {@literal null}.
+     * @param uuid must not be {@literal null}.
      * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
      */
-    void delete(Long id);
+    void delete(String uuid);
 
     /**
      * Deletes a given entity.
@@ -79,12 +79,12 @@ public interface PersistedEntityRepository<T extends Identity>
     void deleteAll();
 
     /**
-     * Returns an {@link Optional} of single entity matching the given {@link Long}.
+     * Returns an {@link Optional} of single entity matching the given {@link String}.
      *
-     * @param id can be {@literal null}.
-     * @return an {@link Optional} of single entity matching the given {@link Long}.
+     * @param uuid can be {@literal null}.
+     * @return an {@link Optional} of single entity matching the given {@link String}.
      */
-    Optional<T> findOne(Long id);
+    Optional<T> findOne(String uuid);
 
     /**
      * Returns a {@link Page} of entities meeting the paging restriction provided in the {@code Pageable} object.

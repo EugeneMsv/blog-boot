@@ -1,36 +1,30 @@
 package ru.text.nastya.dto.base;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class IdentityDto implements Serializable {
 
-    private Long id;
+    private String uuid;
 
-    public Long getId() {
-        return this.id;
+    public String getUuid() {
+        return this.uuid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
-
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         IdentityDto that = (IdentityDto) o;
-
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(uuid, that.uuid);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(uuid);
     }
 }

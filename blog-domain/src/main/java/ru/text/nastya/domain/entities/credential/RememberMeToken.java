@@ -61,7 +61,7 @@ public class RememberMeToken extends Identity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o instanceof RememberMeToken && super.equals(o);
+    protected boolean proxyCheck(Object o) {
+        return o instanceof RememberMeToken;
     }
 }
