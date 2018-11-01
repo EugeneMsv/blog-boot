@@ -46,7 +46,7 @@ public class UserGroupInitializer implements ApplicationListener<ApplicationRead
                     UserGroup.class.getSimpleName());
         }
         logger.info("Existed user groups={}",
-                userGroupCrudService.findAll(new PageRequest(0, Integer.MAX_VALUE)).getContent());
+                userGroupCrudService.findAll(new PageRequest(0, 100)).getContent());
     }
 
     protected void init() {

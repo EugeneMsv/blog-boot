@@ -47,7 +47,7 @@ public class UserRoleInitializer implements ApplicationListener<ApplicationReady
                     UserRole.class.getSimpleName());
         }
         logger.info("Existed user roles={}",
-                userRoleRepository.findAll(new PageRequest(0, Integer.MAX_VALUE)).getContent());
+                userRoleRepository.findAll(new PageRequest(0, 100)).getContent());
     }
 
     protected void init() {

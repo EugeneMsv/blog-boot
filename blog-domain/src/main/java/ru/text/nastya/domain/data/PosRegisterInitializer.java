@@ -51,7 +51,7 @@ public class PosRegisterInitializer implements ApplicationListener<ApplicationRe
                     PostRegister.class.getSimpleName());
         }
         logger.info("Existed postRegisters={}",
-                postRegisterCrudService.findAll(new PageRequest(0, Integer.MAX_VALUE)).getContent());
+                postRegisterCrudService.findAll(new PageRequest(0, 100)).getContent());
     }
 
     protected void init() {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.text.nastya.exception.DataNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 
 @ControllerAdvice(basePackages = {"ru.text.nastya.web.controllers"})
@@ -68,6 +69,13 @@ public class ExceptionAdvice {
     @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public GeneralExceptionResponse handleNotFoundException(HttpServletRequest req, DataNotFoundException ex) {
+        return buildGeneralExceptionResponse(req, ex);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public GeneralExceptionResponse handleConstraintViolationException(HttpServletRequest req,
+                                                                       ConstraintViolationException ex) {
         return buildGeneralExceptionResponse(req, ex);
     }
 }

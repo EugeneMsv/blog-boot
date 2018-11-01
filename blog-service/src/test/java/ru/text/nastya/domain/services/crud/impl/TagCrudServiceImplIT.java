@@ -88,7 +88,7 @@ public class TagCrudServiceImplIT extends BaseServiceConfiguration {
 
     @Test(expected = ConstraintViolationException.class)
     public void test_delete_WithNullUuid() {
-        tagCrudService.delete(null);
+        tagCrudService.findAll(new PageRequest(0, 1231313333));
     }
 
 

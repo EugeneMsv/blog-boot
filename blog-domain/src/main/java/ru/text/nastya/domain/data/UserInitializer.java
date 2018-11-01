@@ -47,7 +47,7 @@ public class UserInitializer implements ApplicationListener<ApplicationReadyEven
                     User.class.getSimpleName());
         }
         logger.info("Existed users={}",
-                userCrudService.findAll(new PageRequest(0, Integer.MAX_VALUE)).getContent());
+                userCrudService.findAll(new PageRequest(0, 100)).getContent());
     }
 
     protected void init() {
