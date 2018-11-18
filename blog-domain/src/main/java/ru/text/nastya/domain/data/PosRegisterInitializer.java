@@ -55,7 +55,7 @@ public class PosRegisterInitializer implements ApplicationListener<ApplicationRe
     }
 
     protected void init() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             initSinglePostRegister();
         }
         logger.info("Initialization of {}, successfully completed", PostRegister.class.getSimpleName());

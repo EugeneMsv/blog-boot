@@ -17,6 +17,7 @@ import java.util.Optional;
 import static java.util.Optional.ofNullable;
 
 //@Profiling(showArgs = true, timeRecord = true, showOutput = true)
+@CrossOrigin
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
 
     protected abstract CrudService<E> getCrudService();
