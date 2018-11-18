@@ -7,7 +7,6 @@ import ru.text.nastya.domain.entities.Tag;
 import ru.text.nastya.dto.PostDto;
 import ru.text.nastya.dto.PostRegisterDto;
 import ru.text.nastya.dto.TagDto;
-import ru.text.nastya.dto.mapper.collection.ListWrapper;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class PostBuilder {
 
     private PostDto postDto;
 
-    public PostDto randomDto(PostRegisterDto registerDto, ListWrapper<TagDto> tags) {
+    public PostDto randomDto(PostRegisterDto registerDto, List<TagDto> tags) {
         return getPostBuilder().dto(buildRandomString())
                 .state(PostState.NEW)
                 .main(buildRandomString())
@@ -71,13 +70,13 @@ public class PostBuilder {
         return this;
     }
 
-    public PostBuilder tags(List<Tag> tags) {
-        post.setTags(tags);
+    public PostBuilder tags(List<TagDto> tags) {
+        postDto.setTags(tags);
         return this;
     }
 
-    public PostBuilder tags(ListWrapper<TagDto> tags) {
-        postDto.setTags(tags);
+    public PostBuilder etags(List<Tag> tags) {
+        post.setTags(tags);
         return this;
     }
 

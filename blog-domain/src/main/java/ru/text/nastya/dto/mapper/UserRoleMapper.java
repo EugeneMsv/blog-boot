@@ -9,7 +9,7 @@ import ru.text.nastya.dto.UserRoleDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "userRoleMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true)
+        withIgnoreNullValue = false)
 public interface UserRoleMapper extends EntityMapper<UserRole, UserRoleDto> {
 
     @Override

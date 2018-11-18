@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * @param <E> domain entity type
  * @param <D> dto type
  */
+// TODO: 03.11.2018 Избавиться от класса
 public abstract class ListMapper<E extends Identity, D extends IdentityDto> {
 
     @Autowired

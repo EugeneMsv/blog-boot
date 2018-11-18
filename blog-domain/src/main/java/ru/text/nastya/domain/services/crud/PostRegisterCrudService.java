@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface PostRegisterCrudService extends CrudService<PostRegister> {
 
-    Commentary addCommentary(String postRegisterId, Commentary commentary);
+    Commentary addCommentary(String postRegisterUuid, Commentary commentary);
 
-    void removeCommentary(String postRegisterId, String commentaryId);
+    void removeCommentary(String postRegisterUuid, String commentaryUuid);
 
     Page<Commentary> findAllCommentaries(String postRegisterUuid, Pageable pageable);
 

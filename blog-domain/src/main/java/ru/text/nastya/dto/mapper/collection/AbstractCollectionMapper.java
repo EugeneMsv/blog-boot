@@ -1,27 +1,22 @@
 package ru.text.nastya.dto.mapper.collection;
 
-import org.apache.commons.lang3.Validate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.dto.base.IdentityDto;
 import ru.text.nastya.dto.mapper.EntityMapper;
-import ru.text.nastya.dto.mapper.collection.strategy.UpdateCollectionStrategy;
-import ru.text.nastya.dto.mapper.collection.strategy.UpdateCollectionStrategyFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Base class for custom handle collections in the mapping
+ * Base class for mapping {@link List} of entities from/to {@link List} of dtos
  *
  * @param <E> domain entity type
  * @param <D> dto type
+ * @param <K> key type
  */
-public abstract class AbstractCollectionMapper<E extends Identity, D extends IdentityDto> {
-
-    @Autowired
-    private UpdateCollectionStrategyFactory updateStrategiesFactory;
+public abstract class AbstractCollectionMapper<E extends Identity, D extends IdentityDto, K> {
 
     /**
      * Get mapper between dto and entity
@@ -31,74 +26,133 @@ public abstract class AbstractCollectionMapper<E extends Identity, D extends Ide
     protected abstract EntityMapper<E, D> getEntityMapper();
 
     /**
-     * Check dto is new or not
+     * Map dtos to entities
      *
-     * @param dto object for check
-     * @return true if new else false
+     * @param dtos {@link List} of dtos for mapping
+     * @return {@link List} of mapped entities or empty {@link ArrayList} when source is null
      */
-    protected abstract boolean isNewDto(D dto);
-
-    /**
-     * Check equality between entity and dto
-     *
-     * @param entity entity object
-     * @param dto    dto object
-     * @return true if equal else false
-     */
-    protected abstract boolean isEquals(E entity, D dto);
-
-    /**
-     * Map dtos wrapper to entities list
-     *
-     * @param dtosWrapper object with dtos for mapping
-     * @return entities list or empty {@link ArrayList}
-     */
-    public List<E> mapDtosToEntities(ListWrapper<D> dtosWrapper) {
-        List<E> entities = null;
-        if (dtosWrapper != null) {
-            entities = dtosWrapper.getValues().stream()
-                    .map(d -> getEntityMapper().mapToEntity(d))
-                    .collect(Collectors.toList());
-        }
-        return entities;
+    public List<E> mapToEntities(List<D> dtos) {
+        return convertList(dtos, getEntityMapper()::mapToEntity);
     }
 
     /**
-     * Map entities list to dtos wrapper
+     * Map dtos to entities
      *
-     * @param entities list of entities
-     * @return wrapper with mapped dtos, or with empty dto list if entities null
+     * @param dtos {@link Set} of dtos for mapping
+     * @return {@link Set} of mapped entities or empty {@link HashSet} when source has no data
      */
-    public ListWrapper<D> mapEntitiesToDtos(List<E> entities) {
-        ListWrapper<D> dtosWrapper = new ListWrapper<>();
-        if (entities != null) {
-            dtosWrapper.setValues(new ArrayList<>(entities.size()));
-            List<D> dtos = entities.stream()
-                    .map(e -> getEntityMapper().mapToDto(e))
-                    .collect(Collectors.toList());
-            dtosWrapper.getValues().addAll(dtos);
-        }
-        return dtosWrapper;
+    public Set<E> mapToEntities(Set<D> dtos) {
+        return convertSet(dtos, getEntityMapper()::mapToEntity);
     }
 
     /**
-     * Update entities with dtos values with strategy defined in dtos wrapper
+     * Map entities to dtos
      *
-     * @param dtos     values wrapper with strategy name
+     * @param entities {@link List} of entities for mapping
+     * @return {@link List} of mapped dtos or empty {@link ArrayList} when source is null
+     */
+    public List<D> mapToDtos(List<E> entities) {
+        return convertList(entities, getEntityMapper()::mapToDto);
+    }
+
+    /**
+     * Map entities to dtos
+     *
+     * @param entities {@link Set} of entities for mapping
+     * @return {@link Set} of mapped dtos or empty {@link HashSet} when source has no data
+     */
+    public Set<D> mapToDtos(Set<E> entities) {
+        return convertSet(entities, getEntityMapper()::mapToDto);
+    }
+
+    private <F, T> Set<T> convertSet(Set<F> source, Function<? super F, ? extends T> mapper) {
+        if (CollectionUtils.isEmpty(source)) {
+            return new HashSet<>();
+        }
+        return source.stream().map(mapper).collect(Collectors.toSet());
+    }
+
+    private <F, T> List<T> convertList(List<F> source, Function<? super F, ? extends T> mapper) {
+        if (CollectionUtils.isEmpty(source)) {
+            return new ArrayList<>();
+        }
+        return source.stream().map(mapper).collect(Collectors.toList());
+    }
+
+    /**
+     * Extract key value for current entity
+     *
+     * @param entity object for key extraction
+     * @return key value
+     */
+    protected abstract K getEntityKeyValue(E entity);
+
+    /**
+     * Extract key value for current dto
+     *
+     * @param dto object for key extraction
+     * @return key value
+     */
+    protected abstract K getDtoKeyValue(D dto);
+
+    /**
+     * Update entities with dtos.
+     * For entities and dtos which have equal key values extracted by
+     * {@link AbstractCollectionMapper#getEntityKeyValue(Identity)} (Object)}
+     * and {@link AbstractCollectionMapper#getDtoKeyValue(IdentityDto)}.
+     * Note that null key values are not equals!!!
+     *
+     * @param dtos     dtos
      * @param entities entities for update
      * @return updated entities
      */
-    public List<E> updateCollectionWithDto(ListWrapper<D> dtos, List<E> entities) {
-        if (dtos == null) {
+    public List<E> updateWithDtos(List<D> dtos, List<E> entities) {
+        return updateWithDtosCollection(dtos, entities);
+    }
+
+    /**
+     * Update entities with dtos.
+     * For entities and dtos which have equal key values extracted by
+     * {@link AbstractCollectionMapper#getEntityKeyValue(Identity)}
+     * and {@link AbstractCollectionMapper#getDtoKeyValue(IdentityDto)}.
+     * Note that null key values are not equal!!!
+     *
+     * @param dtos     dtos
+     * @param entities entities for update
+     * @return updated entities
+     */
+    public Set<E> updateWithDtos(Set<D> dtos, Set<E> entities) {
+        return updateWithDtosCollection(dtos, entities);
+    }
+
+    private <R extends Collection<E>> R updateWithDtosCollection(Collection<D> dtos, R entities) {
+        if (CollectionUtils.isEmpty(dtos)) {
+            entities.clear();
             return entities;
         }
-        Validate.notEmpty(dtos.getUpdateStrategyType(), "Update strategy not defined");
-        UpdateCollectionStrategy strategy = updateStrategiesFactory.getStrategy(dtos.getUpdateStrategyType());
-        return strategy.updateCollectionWithDto(dtos.getValues(),
-                entities,
-                getEntityMapper(),
-                this::isNewDto,
-                this::isEquals);
+        if (dtos.stream().anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Невозможно обновить коллекцию объектов через ["
+                    + getClass().getCanonicalName() + "] на обновление прислан пустой объект");
+        }
+
+        // Collect already existing entities
+        Map<K, E> existingEntitiesMap = entities.stream()
+                .filter(Objects::nonNull)
+                .filter(e -> getEntityKeyValue(e) != null)
+                .collect(Collectors.toMap(this::getEntityKeyValue, e -> e));
+
+        // Fill result with updated and new mapped entities
+        List<E> updatedEntities = dtos.stream()
+                .map(dto ->
+                        Optional.ofNullable(getDtoKeyValue(dto))
+                                .map(existingEntitiesMap::get)
+                                .map(forUpdate -> getEntityMapper().updateEntityWithDto(dto, forUpdate))
+                                .orElseGet(() -> getEntityMapper().mapToEntity(dto))
+                ).collect(Collectors.toList());
+        entities.clear();
+        entities.addAll(updatedEntities);
+
+        return entities;
     }
 
 }

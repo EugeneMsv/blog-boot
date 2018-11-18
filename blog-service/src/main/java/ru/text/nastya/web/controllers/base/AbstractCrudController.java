@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.text.nastya.domain.entities.base.Identity;
 import ru.text.nastya.domain.services.crud.CrudService;
@@ -15,8 +14,7 @@ import ru.text.nastya.exception.DataNotFoundException;
 
 import java.util.Optional;
 
-import static ru.text.nastya.web.controllers.base.ControllerConstants.DEFAULT_MODEL_PARAMETER;
-import static ru.text.nastya.web.controllers.base.ControllerConstants.PAGE_POSTFIX;
+import static java.util.Optional.ofNullable;
 
 //@Profiling(showArgs = true, timeRecord = true, showOutput = true)
 public abstract class AbstractCrudController<E extends Identity, D extends IdentityDto> {
@@ -24,10 +22,6 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
     protected abstract CrudService<E> getCrudService();
 
     protected abstract EntityMapper<E, D> getEntityMapper();
-
-    protected String getModelParameter() {
-        return DEFAULT_MODEL_PARAMETER;
-    }
 
     private E toEntity(D dto) {
         return getEntityMapper().mapToEntity(dto);
@@ -41,10 +35,10 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
         return getEntityMapper().updateEntityWithDto(dto, entity);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public D save(@RequestBody D request) {
-        E entity = Optional.ofNullable(request)
+        E entity = ofNullable(request)
                 .map(this::toEntity)
                 .orElseThrow(() -> new IllegalArgumentException("Input for save is null"));
         E result = getCrudService().save(entity);
@@ -83,21 +77,18 @@ public abstract class AbstractCrudController<E extends Identity, D extends Ident
 
     @GetMapping(value = {"{uuid}"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String get(@PathVariable String uuid, Model model) {
+    public D get(@PathVariable String uuid) {
         Optional<E> founded = getCrudService().findOne(uuid);
-        model.addAttribute(getModelParameter(), founded.map(this::toDto)
-                .orElseThrow(DataNotFoundException::new));
-        return getModelParameter();
+        return founded.map(this::toDto)
+                .orElseThrow(DataNotFoundException::new);
     }
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String findAll(Pageable pageable, Model model) {
+    public Page<D> findAll(Pageable pageable) {
         Page<E> entityPage = this.getCrudService().findAll(pageable);
-        Page<D> dtos = entityPage.map(this::toDto);
-        model.addAttribute(getModelParameter() + PAGE_POSTFIX, dtos);
-        return getModelParameter() + PAGE_POSTFIX;
+        return entityPage.map(this::toDto);
     }
 
     protected void checkDtoForUpdate(D dto) {

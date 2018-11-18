@@ -10,16 +10,15 @@ import ru.text.nastya.dto.base.IdentityDto;
  * @param <D> dto type with long id
  */
 public abstract class AbstractCollectionIdentityMapper<E extends Identity, D extends IdentityDto>
-        extends AbstractCollectionMapper<E, D> {
+        extends AbstractCollectionMapper<E, D, String> {
 
     @Override
-    protected boolean isNewDto(D dto) {
-        return dto.getUuid() == null;
+    protected String getEntityKeyValue(E entity) {
+        return entity.getUuid();
     }
 
     @Override
-    protected boolean isEquals(E entity, D dto) {
-        return dto.getUuid().equals(entity.getUuid());
+    protected String getDtoKeyValue(D dto) {
+        return dto.getUuid();
     }
-
 }

@@ -1,13 +1,13 @@
 package ru.text.nastya.web.controllers;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.text.nastya.domain.services.SecurityService;
 
 import static ru.text.nastya.web.controllers.UserManageController.PATH_PREFIX;
 
-@Controller
+@RestController
 @RequestMapping(PATH_PREFIX)
 public class UserManageController {
 

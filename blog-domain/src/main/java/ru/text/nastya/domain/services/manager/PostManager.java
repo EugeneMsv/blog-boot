@@ -1,14 +1,22 @@
 package ru.text.nastya.domain.services.manager;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
 import ru.text.nastya.domain.entities.Post;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
+@Validated
 public interface PostManager {
 
-    Post addPost(String postRegisterUuid, Post post);
+    @Validated
+    Post addPost(@NotEmpty String postRegisterUuid, @Valid @NotNull Post post);
 
-    void removePost(String postRegisterUuid);
+    @Validated
+    void removePost(@NotEmpty String postRegisterUuid);
 
-    Optional<Post> getPost(String postRegisterUuid);
+    @Validated
+    Optional<Post> getPost(@NotEmpty String postRegisterUuid);
 }

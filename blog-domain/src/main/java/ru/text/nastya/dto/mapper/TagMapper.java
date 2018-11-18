@@ -9,7 +9,7 @@ import ru.text.nastya.dto.TagDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "tagMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true)
+        withIgnoreNullValue = false)
 public interface TagMapper extends EntityMapper<Tag, TagDto> {
 
     @Override

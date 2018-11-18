@@ -9,6 +9,6 @@ import ru.text.nastya.dto.CommentaryDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "commentaryMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true)
+        withIgnoreNullValue = false)
 public interface CommentaryMapper extends EntityMapper<Commentary, CommentaryDto> {
 }

@@ -60,7 +60,7 @@ public class PostManagerImplIT extends BaseServiceConfiguration {
                 .head(buildRandomString(), buildRandomString())
                 .main(buildRandomString())
                 .state(PostState.NEW)
-                .tags(tags)
+                .etags(tags)
                 .register(postRegister)
                 .buildEntity();
     }

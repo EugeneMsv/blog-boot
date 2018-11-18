@@ -10,9 +10,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import ru.text.nastya.BaseControllerConfiguration;
 import ru.text.nastya.dto.PostDto;
 import ru.text.nastya.dto.TagDto;
-import ru.text.nastya.dto.mapper.collection.ListWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,9 +26,9 @@ public class PostControllerIT extends BaseControllerConfiguration {
     private static final String urlPrefix = "/postRegister/{registerId}/post";
 
     private PostDto buildRandomPost() {
-        ListWrapper<TagDto> tags = new ListWrapper<>(new ArrayList<>(3));
+        List<TagDto> tags = new ArrayList<>(new ArrayList<>(3));
         for (int i = 0; i < 3; i++) {
-            tags.getValues().add(getTagBuilder().randomDto());
+            tags.add(getTagBuilder().randomDto());
         }
         return getPostBuilder().randomDto(getPostRegisterBuilder().randomDto(), tags);
     }

@@ -1,7 +1,5 @@
 package ru.text.nastya.domain.services.manager.impl;
 
-import org.apache.commons.lang3.Validate;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +10,7 @@ import ru.text.nastya.domain.services.manager.PostManager;
 import ru.text.nastya.exception.DataNotFoundException;
 
 import java.util.Optional;
+
 
 @Service
 public class PostManagerImpl implements PostManager {
@@ -29,10 +28,7 @@ public class PostManagerImpl implements PostManager {
 
     @Transactional
     @Override
-    public Post addPost(@NotEmpty String postRegisterUuid, Post post) {
-        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
-        Validate.notNull(post, "Post object must be set");
-
+    public Post addPost(String postRegisterUuid, Post post) {
         return postRegisterRepository.findOne(postRegisterUuid)
                 .map(register -> {
                     post.setPostRegister(register);
@@ -43,7 +39,6 @@ public class PostManagerImpl implements PostManager {
     @Transactional
     @Override
     public void removePost(String postRegisterUuid) {
-        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
         Optional<Post> postOpt = postRepository.findByPostRegisterUuid(postRegisterUuid);
         if (postOpt.isPresent()) {
             postRepository.delete(postOpt.get().getUuid());
@@ -55,7 +50,6 @@ public class PostManagerImpl implements PostManager {
     @Transactional(readOnly = true)
     @Override
     public Optional<Post> getPost(String postRegisterUuid) {
-        Validate.notNull(postRegisterUuid, "Post register uuid must be set");
         return postRepository.findByPostRegisterUuid(postRegisterUuid);
     }
 }

@@ -11,7 +11,7 @@ import ru.text.nastya.dto.mapper.collection.UserRoleListMapper;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "userGroupMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true,
+        withIgnoreNullValue = false,
         withCustomFields = @Field(value = "roles", withCustom = UserRoleListMapper.class))
 public interface UserGroupMapper extends EntityMapper<UserGroup, UserGroupDto> {
 

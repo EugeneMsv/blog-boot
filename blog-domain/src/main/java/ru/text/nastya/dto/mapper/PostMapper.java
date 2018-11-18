@@ -10,7 +10,7 @@ import ru.text.nastya.dto.PostDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "postMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true,
+        withIgnoreNullValue = false,
         withCustomFields = {
                 @Field(value = "postRegister", withCustom = PostRegisterMapper.class),
                 @Field(value = "tags", withCustom = TagCollectionMapper.class)

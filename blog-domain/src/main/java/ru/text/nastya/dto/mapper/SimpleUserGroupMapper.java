@@ -9,7 +9,7 @@ import ru.text.nastya.dto.SimpleUserGroupDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "simpleUserGroupMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true)
+        withIgnoreNullValue = false)
 public interface SimpleUserGroupMapper extends EntityMapper<UserGroup, SimpleUserGroupDto> {
 
     @Override

@@ -9,7 +9,7 @@ import ru.text.nastya.dto.PostRegisterDto;
 @Mapper(withIoC = IoC.SPRING,
         withIoCServiceName = "postRegisterMapper",
         withIgnoreMissing = IgnoreMissing.ALL,
-        withIgnoreNullValue = true
+        withIgnoreNullValue = false
 )
 public interface PostRegisterMapper extends EntityMapper<PostRegister, PostRegisterDto> {
 
